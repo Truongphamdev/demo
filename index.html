@@ -178,8 +178,8 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 /* two branches */
 .branch .wrap{display:grid;gap:40px}
 @media(min-width:900px){.branch .wrap{grid-template-columns:1fr 1fr;gap:70px;align-items:center}}
-.branch .frame>div{aspect-ratio:4/5}
-#nha-o .frame>div{aspect-ratio:1}
+.branch .frame>div{aspect-ratio:1}
+.frame.full img{object-fit:contain;transform:none}
 @media(min-width:900px){.branch .wrap{align-items:start}.branch .frame{position:sticky;top:90px}}
 .ben{display:grid;gap:16px;margin:0 0 28px}
 .ben dt{font-family:var(--serif);font-size:1.35rem;line-height:1.2;margin-bottom:2px}
@@ -405,7 +405,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 <div class="wrap-branches">
 <section class="branch" id="nha-o">
   <div class="wrap">
-    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/song-c-800.webp 800w, img/fb/song-c.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/song-c.jpg" alt="Đôi tay nâng chai tinh dầu YOKO trên mặt nước có hoa trắng" width="1400" height="1176" loading="lazy"></picture></div></div>
+    <div class="frame rv full"><div><picture><source type="image/webp" srcset="img/fb/song-800.webp 800w, img/fb/song.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/song.jpg" alt="Đôi tay nâng chai tinh dầu YOKO trên mặt nước có hoa trắng. Chạm vào sự tươi mới của thiên nhiên qua từng giọt hương." width="1400" height="1400" loading="lazy"></picture></div></div>
     <div>
       <h2 class="rv">Công dụng hương thơm cho gia đình</h2>
       <dl class="ben">
@@ -423,7 +423,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 
 <section class="branch branch-biz" id="kinh-doanh">
   <div class="wrap">
-    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/kinhdoanh-c-800.webp 800w, img/fb/kinhdoanh-c.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/kinhdoanh-c.jpg" alt="Bình tinh dầu YOKO 1 lít trên tay, nắng chiều" width="812" height="1288" loading="lazy"></picture></div></div>
+    <div class="frame rv full"><div><picture><source type="image/webp" srcset="img/fb/kinhdoanh-800.webp 800w, img/fb/kinhdoanh.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/kinhdoanh.jpg" alt="Bình tinh dầu YOKO 1 lít trên tay, nắng chiều. Không nước, không nhiệt, đưa hương lan toả nhẹ nhàng và đồng đều." width="1400" height="1400" loading="lazy"></picture></div></div>
     <div>
       <h2 class="rv">Hương thơm trong không gian kinh doanh</h2>
       <blockquote class="rv">Không gian đẹp tạo ấn tượng. Mùi hương tạo dấu ấn.</blockquote>
