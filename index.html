@@ -102,6 +102,10 @@ section{padding:96px 0}
 /* parallax */
 .plx img{will-change:transform;transform:translateY(var(--py,0)) scale(1.12)}
 
+/* audience order */
+body[data-for="biz"] .wrap-branches{display:flex;flex-direction:column}
+body[data-for="biz"] #kinh-doanh{order:-1}
+
 /* nav */
 .nav{position:sticky;top:16px;z-index:30;display:flex;justify-content:center;padding:0 20px;pointer-events:none}
 .nav-pill{pointer-events:auto;display:flex;align-items:center;gap:22px;padding:8px 8px 8px 22px;border-radius:999px;
@@ -390,6 +394,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
   </div>
 </section>
 
+<div class="wrap-branches">
 <section class="branch" id="nha-o">
   <div class="wrap">
     <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/song-800.webp 800w, img/fb/song.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/song.jpg" alt="Đôi tay nâng chai tinh dầu YOKO trên mặt nước có hoa trắng" width="1400" height="1400" loading="lazy"></picture></div></div>
@@ -419,6 +424,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
     </div>
   </div>
 </section>
+</div>
 
 <section class="uses">
   <div class="wrap">
@@ -552,7 +558,8 @@ const PRICE_10ML = 0;
 
 document.documentElement.classList.add('js');
 // màn mở đầu: 1 lần mỗi phiên
-try{if(!sessionStorage.getItem('yoko-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('pre');sessionStorage.setItem('yoko-intro','1');setTimeout(()=>document.documentElement.classList.remove('pre'),1900)}}catch(_){}
+const fromAds=/(^|[?&])(fbclid|utm_source)=/.test(location.search);
+try{if(!fromAds&&!sessionStorage.getItem('yoko-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('pre');sessionStorage.setItem('yoko-intro','1');setTimeout(()=>document.documentElement.classList.remove('pre'),1900)}}catch(_){}
 // parallax nhẹ, chỉ transform
 const plx=[...document.querySelectorAll('.plx')];
 let ticking=false;
@@ -578,6 +585,15 @@ chips.forEach(c=>c.addEventListener('click',()=>{
 const tabs=[...document.querySelectorAll('.tab')], panels={home:document.getElementById('panel-home'),biz:document.getElementById('panel-biz')};
 function showTab(k){tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.panel===k));Object.entries(panels).forEach(([n,p])=>p.classList.toggle('on',n===k))}
 tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.panel)));
+// ?for=home | ?for=biz : ưu tiên nhánh theo nhóm quảng cáo
+const aud=new URLSearchParams(location.search).get('for');
+if(aud==='home'||aud==='biz'){
+  showTab(aud);
+  const [btnHome,btnBiz]=document.querySelectorAll('.hero-cta .btn');
+  if(aud==='biz'){btnBiz.classList.replace('btn-paper','btn-gold');btnHome.classList.replace('btn-gold','btn-paper');btnBiz.parentNode.prepend(btnBiz);
+    document.querySelectorAll('.bar .btn-gold')[0].textContent='Đăng ký tư vấn ';document.querySelector('.bar .btn-gold').insertAdjacentHTML('beforeend','<i>↗</i>');}
+  document.body.dataset.for=aud;
+}
 document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>showTab(a.dataset.tab)));
 
 // tóm tắt chọn mùi
