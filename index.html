@@ -131,6 +131,8 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
 .hero-cta small{display:block;font-size:12px;opacity:.7;margin-top:3px;font-weight:300}
 .hero-cta .btn{flex-direction:row;align-items:center;min-height:64px;white-space:normal;max-width:100%;text-align:left}
+.hero-cta .btn span{flex:1 1 auto;min-width:0}
+.hero-cta .btn i{flex:0 0 40px}
 .hero-cta .btn span{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
 .hero-fig{position:relative}
 .hero-fig .frame>div{aspect-ratio:4/5}
@@ -158,7 +160,7 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .scent{background:rgba(32,27,23,.05);box-shadow:inset 0 0 0 1px var(--hair);border-radius:var(--radius);padding:7px;transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .scent:hover{transform:translateY(-4px)}
 .scent.dim{opacity:.28;transform:scale(.985)}
-.scent-in{background:var(--paper);border-radius:calc(var(--radius) - 7px);padding:28px 26px 26px;height:100%;display:grid;gap:10px;box-shadow:inset 0 1px 1px #fff,0 30px 60px -40px rgba(32,27,23,.35)}
+.scent-in{background:var(--paper);border-radius:calc(var(--radius) - 7px);padding:28px clamp(18px,5vw,26px) 26px;height:100%;display:grid;gap:10px;box-shadow:inset 0 1px 1px #fff,0 30px 60px -40px rgba(32,27,23,.35)}
 .scent-in header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .swatch{flex:0 0 58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--c2),var(--c1) 72%);box-shadow:inset 0 1px 2px rgba(255,255,255,.6),0 14px 24px -14px rgba(32,27,23,.45)}
 .scent-in h3{font-size:2rem}
@@ -169,7 +171,8 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .meters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px;padding-top:14px;border-top:1px solid var(--hair)}
 .meters div{font-size:12px;color:var(--ink-2)}
 .meters span{display:flex;gap:4px;margin-top:5px}
-.meters i{width:14px;height:5px;border-radius:3px;background:var(--hair-2)}
+.meters i{flex:1 1 0;min-width:6px;max-width:14px;height:5px;border-radius:3px;background:var(--hair-2)}
+.meters>div{min-width:0}
 .meters i.on{background:var(--gold)}
 .fit{font-size:13px;color:var(--ink-2);margin-top:4px}
 .fit b{font-weight:400;color:var(--ink)}
@@ -179,6 +182,8 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .branch .wrap{display:grid;gap:40px}
 @media(min-width:900px){.branch .wrap{grid-template-columns:1fr 1fr;gap:70px;align-items:center}}
 .branch .frame>div{aspect-ratio:1}
+.branch .wrap>*{min-width:0}
+.wrap>*{min-width:0}
 .frame.full img{object-fit:contain;transform:none}
 @media(min-width:900px){.branch .wrap{align-items:start}.branch .frame{position:sticky;top:90px}}
 .ben{display:grid;gap:16px;margin:0 0 28px}
@@ -502,7 +507,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
             <label class="pick size"><input type="radio" name="size" value="10ml" checked><b>10ml</b><small>322.920đ</small></label>
             <label class="pick size"><input type="radio" name="size" value="50ml"><b>50ml</b><small>970.920đ</small></label>
             <label class="pick size"><input type="radio" name="size" value="100ml"><b>100ml</b><small>1.402.920đ</small></label>
-            <label class="pick size"><input type="radio" name="size" value="500ml"><b>500ml</b><small>2.763.936đ</small></label>
+            <label class="pick size"><input type="radio" name="size" value="500ml"><b>500ml</b><small>3.454.920đ</small></label>
           </div>
         </div>
         <div class="field"><span>3. Chọn gói</span>
@@ -587,7 +592,7 @@ const DEALS={
  '10ml':[{id:'1',label:'Mua 1 chai',total:322920},{id:'2+1',label:'Mua 2 tặng 1',sub:'Giá gốc 968.760đ',total:645840,gift:'1 chai 10ml'}],
  '50ml':[{id:'1',label:'Mua 1 chai',total:970920},{id:'2+1',label:'Mua 2 tặng 1, freeship',sub:'Giá gốc 2.912.760đ',total:1941840,gift:'1 chai 50ml',ship:true}],
  '100ml':[{id:'1',label:'Mua 1 chai, freeship',total:1402920,ship:true},{id:'2+2x10',label:'Mua 2 chai, tặng 2 chai 10ml, freeship',sub:'Giá gốc 3.451.680đ',total:2805840,gift:'2 chai 10ml',ship:true}],
- '500ml':[{id:'-20%',label:'Giảm 20%, freeship',sub:'Giá gốc 3.454.920đ',total:2763936,ship:true}]
+ '500ml':[{id:'1',label:'Mua 1 chai, freeship',total:3454920,ship:true},{id:'-20%',label:'Ưu đãi giảm 20%, freeship',sub:'Giá gốc 3.454.920đ',total:2763936,ship:true}]
 };
 const fmt=n=>n.toLocaleString('vi-VN')+'đ';
 const form=document.getElementById('orderForm'), dealBox=document.getElementById('dealPicks');
