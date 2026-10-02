@@ -123,11 +123,9 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 @media(min-width:900px){.hero{padding:70px 0 120px}}
 .hero-grid{display:grid;gap:40px}
 @media(min-width:900px){.hero-grid{grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}}
-.hero h1{margin-bottom:26px;font-size:clamp(2.2rem,6.2vw,3.9rem)}
-.hero .lead{font-size:15px;display:grid;gap:10px;max-width:31em;margin-bottom:30px;color:var(--ink-2)}
-.lead-h{font-family:var(--serif);font-size:1.4rem;line-height:1.25;color:var(--ink)}
-.lead-tag{color:var(--ink);font-size:16px}
-.hero .ask{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin-bottom:14px}
+.hero h1{margin-bottom:26px}
+.hero .lead{font-size:1.1rem;max-width:28em;margin-bottom:30px}
+.hero .ask{font-size:13px;color:var(--ink-2);margin-bottom:12px}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
 .hero-cta small{display:block;font-size:12px;opacity:.7;margin-top:3px;font-weight:300}
 .hero-cta .btn{flex-direction:row;align-items:center;min-height:64px;white-space:normal;max-width:100%;text-align:left}
@@ -179,17 +177,6 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .branch .wrap{display:grid;gap:40px}
 @media(min-width:900px){.branch .wrap{grid-template-columns:1fr 1fr;gap:70px;align-items:center}}
 .branch .frame>div{aspect-ratio:4/5}
-#nha-o .frame>div{aspect-ratio:1}
-@media(min-width:900px){.branch .wrap{align-items:start}.branch .frame{position:sticky;top:90px}}
-.ben{display:grid;gap:16px;margin:0 0 28px}
-.ben dt{font-family:var(--serif);font-size:1.35rem;line-height:1.2;margin-bottom:2px}
-.ben dd{font-size:15px;color:var(--ink-2);max-width:32em}
-.ben.num{counter-reset:b}
-.ben.num dt::before{counter-increment:b;content:counter(b,decimal-leading-zero);font-family:var(--sans);font-size:12px;letter-spacing:.12em;color:var(--gold);margin-right:10px;vertical-align:middle}
-.branch-biz .ben dd{color:rgba(251,249,245,.72)}
-.branch .muted{margin-bottom:24px}
-.sug{font-size:13px;color:var(--gold-2);margin-bottom:10px}
-.branch-biz .sug{color:var(--gold)}
 .branch blockquote{font-family:var(--serif);font-size:clamp(1.5rem,3vw,1.9rem);line-height:1.3;margin:0 0 22px;text-wrap:pretty}
 .branch ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
 .branch li{font-size:13px;padding:8px 14px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--hair-2)}
@@ -199,6 +186,23 @@ body[data-for="biz"] #kinh-doanh{order:-1}
 .branch-biz li{box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
 .branch-biz .frame{background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
 @media(min-width:900px){.branch-biz .wrap>:first-child{order:2}}
+.machines{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:34px 0 30px}
+.machines figure{background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);border-radius:18px;padding:5px}
+.machines figure div{background:#fff;border-radius:14px;aspect-ratio:1;display:grid;place-items:center;padding:12%}
+.machines img{object-fit:contain;max-height:100%}
+.machines figcaption{padding:10px 8px 6px;font-size:12px;color:rgba(251,249,245,.75)}
+.machines figcaption b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:500;color:#fff}
+
+/* uses */
+.uses{background:var(--paper)}
+.uses .wrap{display:grid;gap:44px}
+@media(min-width:900px){.uses .wrap{grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}}
+.uses .frame>div{aspect-ratio:1}
+.uses dl{display:grid;gap:22px;margin-top:34px;padding-top:28px;border-top:1px solid var(--hair-2)}
+.uses dt{font-family:var(--serif);font-size:1.5rem;margin-bottom:3px}
+.uses dd{font-size:15px;color:var(--ink-2);max-width:30em}
+.where{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.where span{font-size:13px;padding:8px 14px;border-radius:999px;background:var(--bg)}
 
 /* two paths */
 .paths h2{text-align:center;margin-inline:auto;max-width:14em}
@@ -237,6 +241,15 @@ figcaption{margin-top:16px;font-size:14px;color:var(--ink-2)}
 .order{background:var(--bg-2)}
 .order h2{text-align:center;margin-inline:auto}
 .order .intro{text-align:center;margin:0 auto 40px}
+.tabs{display:flex;gap:6px;background:rgba(32,27,23,.06);border-radius:999px;padding:6px;width:max-content;max-width:100%;margin:0 auto 34px}
+.tab{border:0;cursor:pointer;background:transparent;border-radius:999px;padding:12px 18px;font:400 14px/1.2 var(--sans);color:var(--ink-2);transition:background .5s var(--ease),color .5s var(--ease)}
+.tab[aria-selected="true"]{background:var(--paper);color:var(--ink);box-shadow:0 10px 24px -14px rgba(32,27,23,.5)}
+.form-shell{max-width:760px;margin-inline:auto;background:rgba(32,27,23,.05);box-shadow:inset 0 0 0 1px var(--hair);border-radius:var(--radius);padding:8px}
+.form-in{background:var(--paper);border-radius:calc(var(--radius) - 8px);padding:28px 22px;box-shadow:inset 0 1px 1px #fff,0 30px 60px -40px rgba(32,27,23,.35)}
+@media(min-width:700px){.form-in{padding:40px}}
+.form-in input,.form-in select,.form-in textarea,.form-in .pick,.form-in .sum{background:var(--bg)}
+.panel{display:none}
+.panel.on{display:block}
 form{display:grid;gap:14px}
 .row2{display:grid;gap:14px}
 @media(min-width:600px){.row2{grid-template-columns:1fr 1fr}}
@@ -250,23 +263,6 @@ textarea{min-height:88px;resize:vertical}
 .pick{display:flex;align-items:center;gap:10px;background:var(--paper);box-shadow:inset 0 0 0 1px var(--hair-2);border-radius:12px;padding:12px 14px;font-size:14px;cursor:pointer}
 .pick input{width:16px;height:16px;accent-color:var(--gold);margin:0;box-shadow:none;padding:0}
 .pick:has(input:checked){box-shadow:inset 0 0 0 1.5px var(--ink)}
-.pick{position:relative}
-.pick.size,.pick.deal{display:grid;gap:2px}
-.pick.size input,.pick.deal input{position:absolute;opacity:0;pointer-events:none}
-.pick.size b{font-family:var(--serif);font-size:1.35rem;font-weight:500;line-height:1.1}
-.pick.size small,.pick.deal small{font-size:12px;color:var(--ink-2)}
-.picks.sizes{grid-template-columns:repeat(2,1fr)}
-@media(min-width:600px){.picks.sizes{grid-template-columns:repeat(4,1fr)}}
-.picks>*{min-width:0}
-.picks.deals{grid-template-columns:1fr}
-@media(min-width:600px){.picks.deals{grid-template-columns:1fr 1fr}}
-.pick.deal{grid-template-columns:1fr auto;align-items:center;padding:14px 16px}
-.pick.deal span{grid-column:1;grid-row:1;font-size:14px}
-.pick.deal small{grid-column:1;grid-row:2}
-.pick.deal b{grid-column:2;grid-row:1/3;font-family:var(--serif);font-size:1.3rem;font-weight:500;white-space:nowrap}
-.pick-desc{font-family:var(--serif);font-size:1.2rem;line-height:1.3;color:var(--ink);margin-top:10px;min-height:1.6em}
-.biz-check{font-size:14px}
-.sum small{display:block;font-size:12px;color:var(--gold-2);margin-top:2px}
 .sum{display:flex;justify-content:space-between;align-items:baseline;padding:16px 18px;background:var(--paper);border-radius:14px;font-size:14px;color:var(--ink-2)}
 .sum b{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--ink)}
 .form-note{font-size:13px;color:var(--ink-2)}
@@ -300,21 +296,17 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1 class="rv">Tinh dầu không chỉ làm không gian thơm — <em>nó có thể thay đổi hoàn toàn cảm giác của bạn khi bước vào một nơi.</em></h1>
-      <div class="lead rv">
-        <p class="lead-h">Tại YOKO JAPAN, tinh dầu được tuyển chọn bằng tiêu chuẩn hương</p>
-        <p>Không chạy theo những mùi hương chỉ thơm mạnh hay lưu hương lâu, YOKO JAPAN tập trung vào chất lượng nguyên liệu, độ cân bằng và trải nghiệm của mùi hương trong không gian.</p>
-        <p>Mỗi mùi hương được tuyển chọn với tiêu chí hương thơm tinh tế, rõ cá tính và phù hợp với nhiều nhu cầu sử dụng, từ không gian sống đến không gian kinh doanh.</p>
-        <p class="lead-tag"><em>YOKO JAPAN — chọn chất lượng trước khi chọn một mùi hương.</em></p>
-      </div>
+      <h1 class="rv">Mùi hương không chỉ làm không gian thơm. <em>Nó tạo nên cảm nhận về không gian.</em></h1>
+      <p class="lead rv">Tinh dầu hương thơm YOKO JAPAN, nhập khẩu nguyên chất, không pha trộn. Dành cho không gian sống và những không gian kinh doanh muốn được ghi nhớ bằng một mùi hương riêng.</p>
       <p class="ask rv">Bạn đang tìm hương thơm cho:</p>
       <div class="hero-cta rv">
-        <a class="btn btn-gold" href="#nha-o"><span>Nhà ở<small>Phòng khách, phòng ngủ, căn hộ, villa...</small></span><i>↓</i></a>
-        <a class="btn btn-paper" href="#kinh-doanh"><span>Không gian kinh doanh<small>Spa, showroom, văn phòng, khách sạn...</small></span><i>↓</i></a>
+        <a class="btn btn-gold" href="#nha-o"><span>Nhà ở<small>Phòng khách, phòng ngủ, căn hộ, villa</small></span><i>↓</i></a>
+        <a class="btn btn-paper" href="#kinh-doanh"><span>Không gian kinh doanh<small>Spa, showroom, văn phòng, khách sạn</small></span><i>↓</i></a>
       </div>
     </div>
     <figure class="hero-fig rv plx">
       <div class="frame"><div><picture><source type="image/webp" srcset="img/fb/hero-800.webp 800w, img/fb/hero.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/hero.jpg" alt="Máy khuếch tán và tinh dầu YOKO trên khay gỗ, phía sau là người đang thư giãn" width="1600" height="1600" fetchpriority="high"></picture></div></div>
+      <div class="hero-tag"><b>Formulated in Japan</b>nhập khẩu nguyên chất</div>
     </figure>
   </div>
 </section>
@@ -405,60 +397,67 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 <div class="wrap-branches">
 <section class="branch" id="nha-o">
   <div class="wrap">
-    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/song-c-800.webp 800w, img/fb/song-c.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/song-c.jpg" alt="Đôi tay nâng chai tinh dầu YOKO trên mặt nước có hoa trắng" width="1400" height="1176" loading="lazy"></picture></div></div>
+    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/song-800.webp 800w, img/fb/song.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/song.jpg" alt="Đôi tay nâng chai tinh dầu YOKO trên mặt nước có hoa trắng" width="1400" height="1400" loading="lazy"></picture></div></div>
     <div>
-      <h2 class="rv">Công dụng hương thơm cho gia đình</h2>
-      <dl class="ben">
-        <div class="rv"><dt>Thư giãn sau một ngày dài</dt><dd>Giúp không gian trở nên dễ chịu, tạo cảm giác thư thái khi bạn trở về nhà.</dd></div>
-        <div class="rv"><dt>Hỗ trợ kiểm soát mùi không mong muốn</dt><dd>Giúp không gian dễ chịu hơn trước các mùi tạp như mùi thức ăn, mồ hôi, mùi ẩm và những mùi sinh hoạt thường ngày.</dd></div>
-        <div class="rv"><dt>Tạo dấu ấn riêng cho ngôi nhà</dt><dd>Mỗi gia đình có một phong cách. Một mùi hương phù hợp giúp không gian trở nên có cá tính và mang cảm giác "đây là nhà mình".</dd></div>
-        <div class="rv"><dt>Nuôi dưỡng những khoảnh khắc khi ở nhà</dt><dd>Từ một buổi tối thư giãn, đọc sách đến những phút quây quần bên gia đình, hương thơm góp phần tạo nên bầu không khí dễ chịu cho từng khoảnh khắc.</dd></div>
-      </dl>
-      <p class="sug rv">Gợi ý không gian sử dụng</p>
-      <ul class="rv"><li>Căn hộ</li><li>Chung cư</li><li>Villa</li><li>Penthouse</li><li>Phòng khách</li><li>Phòng ngủ</li><li>Phòng làm việc</li><li>Phòng thay đồ</li></ul>
-      <a class="btn btn-gold rv" href="#dat-hang">Tìm mùi hương cho nhà tôi <i>↗</i></a>
+      <h2 class="rv">Cho không gian sống</h2>
+      <blockquote class="rv">Một căn nhà đẹp có thể được nhìn thấy. Nhưng một căn nhà có dấu ấn lại thường được nhớ bằng mùi hương.</blockquote>
+      <ul class="rv"><li>Căn hộ</li><li>Villa</li><li>Penthouse</li><li>Phòng khách</li><li>Phòng ngủ</li><li>Phòng làm việc</li><li>Phòng thay đồ</li></ul>
+      <a class="btn btn-gold rv" href="#dat-hang" data-tab="home">Tìm mùi hương cho nhà tôi <i>↗</i></a>
     </div>
   </div>
 </section>
 
 <section class="branch branch-biz" id="kinh-doanh">
   <div class="wrap">
-    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/kinhdoanh-c-800.webp 800w, img/fb/kinhdoanh-c.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/kinhdoanh-c.jpg" alt="Bình tinh dầu YOKO 1 lít trên tay, nắng chiều" width="812" height="1288" loading="lazy"></picture></div></div>
+    <div class="frame rv plx"><div><picture><source type="image/webp" srcset="img/fb/kinhdoanh-800.webp 800w, img/fb/kinhdoanh.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/kinhdoanh.jpg" alt="Bình tinh dầu YOKO 1 lít trên tay, nắng chiều" width="1400" height="1400" loading="lazy"></picture></div></div>
     <div>
-      <h2 class="rv">Hương thơm trong không gian kinh doanh</h2>
-      <blockquote class="rv">Không gian đẹp tạo ấn tượng. Mùi hương tạo dấu ấn.</blockquote>
-      <p class="muted rv">Hương thơm không chỉ làm không gian dễ chịu hơn. Khi được lựa chọn đúng, nó trở thành một phần của trải nghiệm khách hàng và hình ảnh thương hiệu.</p>
-      <dl class="ben num">
-        <div class="rv"><dt>Kiểm soát mùi không mong muốn</dt><dd>Hỗ trợ giảm cảm nhận từ mùi thức ăn, mồ hôi, ẩm mốc, hoá chất và các mùi sinh hoạt đặc trưng.</dd></div>
-        <div class="rv"><dt>Tạo trải nghiệm dễ chịu</dt><dd>Mang đến cảm giác thoải mái, thư thái và phù hợp với tính chất của từng không gian.</dd></div>
-        <div class="rv"><dt>Tạo dấu ấn thương hiệu</dt><dd>Một mùi hương phù hợp có thể trở thành dấu hiệu nhận diện vô hình, gắn với hình ảnh và phong cách riêng của doanh nghiệp.</dd></div>
-        <div class="rv"><dt>Gia tăng khả năng ghi nhớ</dt><dd>Khi thị giác và khứu giác cùng tạo nên trải nghiệm, không gian có thêm một điểm chạm để khách hàng nhớ đến thương hiệu.</dd></div>
-        <div class="rv"><dt>Nâng tầm không gian</dt><dd>Hương thơm được lựa chọn đúng góp phần tạo nên cảm nhận chuyên nghiệp, chỉn chu và nhất quán với định vị thương hiệu.</dd></div>
-      </dl>
-      <p class="sug rv">Gợi ý không gian sử dụng</p>
+      <h2 class="rv">Cho không gian kinh doanh</h2>
+      <blockquote class="rv">Hương thơm có thể trở thành một phần của trải nghiệm thương hiệu.</blockquote>
+      <p class="muted rv">Không gian kinh doanh không chỉ cần "thơm". Mùi hương cần hợp với diện tích, phong cách không gian, nhóm khách hàng và cảm xúc thương hiệu muốn tạo ra. YOKO khảo sát, chọn mùi, chọn máy, định lượng và vận hành cho bạn.</p>
       <ul class="rv"><li>Khách sạn</li><li>Spa</li><li>Showroom</li><li>Văn phòng</li><li>Nhà hàng</li><li>Cửa hàng</li><li>Bất động sản</li><li>Toà nhà</li></ul>
-      <a class="btn btn-light rv" href="#dat-hang" data-biz="1">Nhận tư vấn cho doanh nghiệp <i>↗</i></a>
+      <div class="machines rv">
+        <figure><div><picture><source type="image/webp" srcset="img/yoko/chiba-800.webp 800w, img/yoko/chiba.webp 1400w" sizes="(min-width:900px) 160px, 30vw"><img src="img/yoko/chiba.jpg" alt="Máy CHIBA" width="1400" height="1400" loading="lazy"></picture></div><figcaption><b>CHIBA</b>đến 30m²</figcaption></figure>
+        <figure><div><picture><source type="image/webp" srcset="img/yoko/aichi-side-800.webp 800w, img/yoko/aichi-side.webp 1400w" sizes="(min-width:900px) 160px, 30vw"><img src="img/yoko/aichi-side.jpg" alt="Máy AICHI" width="1400" height="1400" loading="lazy"></picture></div><figcaption><b>AICHI</b>đến 150m²</figcaption></figure>
+        <figure><div><picture><source type="image/webp" srcset="img/yoko/hiro-5-800.webp 800w, img/yoko/hiro-5.webp 1400w" sizes="(min-width:900px) 160px, 30vw"><img src="img/yoko/hiro-5.jpg" alt="Máy HIRO" width="1400" height="1400" loading="lazy"></picture></div><figcaption><b>HIRO</b>đến 300m², nối HVAC</figcaption></figure>
+      </div>
+      <a class="btn btn-light rv" href="#dat-hang" data-tab="biz">Tìm giải pháp cho doanh nghiệp <i>↗</i></a>
     </div>
   </div>
 </section>
 </div>
 
+<section class="uses">
+  <div class="wrap">
+    <div class="frame rv"><div><picture><source type="image/webp" srcset="img/fb/bottle-box-800.webp 800w, img/fb/bottle-box.webp 1400w" sizes="(min-width:900px) 45vw, 92vw"><img src="img/fb/bottle-box.jpg" alt="Chai tinh dầu YOKO 10ml và hộp giấy" width="1200" height="1200" loading="lazy"></picture></div></div>
+    <div>
+      <h2 class="rv">Tinh dầu dùng để làm gì</h2>
+      <p class="muted rv">Không chỉ để khuếch tán cho thơm.</p>
+      <dl>
+        <div class="rv"><dt>Khử mùi, thanh lọc không khí</dt><dd>Mùi ẩm, mùi thức ăn, mùi đồ mới. Hương lan đều thay vì che tạm.</dd></div>
+        <div class="rv"><dt>Thư giãn, giảm căng thẳng, ngủ ngon</dt><dd>Một mùi quen vào buổi tối giúp cơ thể hiểu đã đến giờ nghỉ.</dd></div>
+        <div class="rv"><dt>Dấu ấn mùi hương riêng</dt><dd>Khách đến chơi nhớ nhà bạn bằng mùi. Khách hàng nhớ cửa hàng bạn cũng vậy.</dd></div>
+      </dl>
+      <div class="where rv"><span>Phòng khách</span><span>Phòng ngủ</span><span>Phòng tắm</span><span>Phòng làm việc</span><span>Ướp hương tủ đồ, khăn</span><span>Xe hơi</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="paths">
   <div class="wrap">
-    <h2 class="rv">Bắt đầu từ một chai 10ml, hoặc để YOKO tư vấn cho không gian của bạn</h2>
-    <p class="intro muted rv">Bạn có thể bắt đầu bằng một chai 10ml để thử mùi. Nếu đang tìm hương thơm cho một không gian kinh doanh, YOKO tư vấn mùi, dung tích và cách sử dụng phù hợp.</p>
+    <h2 class="rv">Bắt đầu từ một chai 10ml, hoặc một giải pháp trọn gói</h2>
+    <p class="intro muted rv">Bạn có thể bắt đầu bằng một chai 10ml để thử mùi. Nhưng nếu đang tìm hương thơm cho một không gian lớn, YOKO tư vấn thiết bị, cường độ, lượng tiêu thụ và phương án vận hành.</p>
     <div class="path-grid">
       <div class="path rv"><div class="path-in">
-        <small>Cá nhân, gia đình</small><h3>Tinh dầu YOKO</h3>
-        <p>Chọn mùi, chọn dung tích từ 10ml đến 500ml. Dùng với máy khuếch tán, lọ tán hương hoặc ướp khăn, tủ đồ.</p>
-        <ol><li>Chọn mùi và dung tích</li><li>Để lại địa chỉ nhận hàng</li><li>YOKO gọi xác nhận và giao trong 1–3 ngày</li></ol>
-        <a class="btn btn-gold" href="#dat-hang">Chọn mùi &amp; đặt hàng <i>↗</i></a>
+        <small>Cá nhân, gia đình</small><h3>Tinh dầu 10ml</h3>
+        <p>Thử mùi và dùng tại nhà. Nhỏ vài giọt vào máy khuếch tán, lọ tán hương hoặc khăn, tủ đồ.</p>
+        <ol><li>Chọn 1–3 mùi bạn thích</li><li>Để lại địa chỉ nhận hàng</li><li>YOKO gọi xác nhận và giao trong 1–3 ngày</li></ol>
+        <a class="btn btn-gold" href="#dat-hang" data-tab="home">Chọn mùi &amp; đặt hàng <i>↗</i></a>
       </div></div>
       <div class="path biz rv"><div class="path-in">
-        <small>Doanh nghiệp</small><h3>Tư vấn cho doanh nghiệp</h3>
-        <p>Tư vấn mùi theo thương hiệu, dung tích và cách sử dụng phù hợp với không gian kinh doanh.</p>
-        <ol><li>Nghe về không gian và thương hiệu của bạn</li><li>Gợi ý 2–3 mùi, gửi mẫu thử</li><li>Báo giá theo dung tích và nhu cầu</li></ol>
-        <a class="btn btn-light" href="#dat-hang" data-biz="1">Nhận tư vấn <i>↗</i></a>
+        <small>Doanh nghiệp</small><h3>Giải pháp hương thơm</h3>
+        <p>Mua máy và tinh dầu, hoặc thuê trọn gói theo tháng: máy, tinh dầu và nhân sự châm dầu định kỳ.</p>
+        <ol><li>Tư vấn mùi theo thương hiệu</li><li>Khảo sát không gian, chọn máy và định lượng</li><li>Lắp đặt, vận hành và bảo trì</li></ol>
+        <a class="btn btn-light" href="#dat-hang" data-tab="biz">Đăng ký tư vấn <i>↗</i></a>
       </div></div>
     </div>
   </div>
@@ -481,46 +480,63 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 
 <section class="order" id="dat-hang">
   <div class="wrap">
-    <h2 class="rv">Chọn hương thơm phù hợp phong cách của bạn</h2>
-    <p class="intro muted rv">YOKO gọi xác nhận trong 15 phút giờ hành chính.</p>
+    <h2 class="rv">Tìm mùi hương cho không gian của bạn</h2>
+    <p class="intro muted rv">YOKO gọi lại trong 15 phút giờ hành chính.</p>
+    <div class="tabs rv" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-panel="home">Đặt tinh dầu 10ml</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="biz">Tư vấn cho doanh nghiệp</button>
+    </div>
+
     <div class="form-shell rv"><div class="form-in">
-      <form id="orderForm" novalidate>
-        <div class="field"><span>1. Chọn mùi</span>
+    <div class="panel on" id="panel-home" role="tabpanel">
+      <form id="formHome" novalidate>
+        <div class="field"><span>Chọn mùi (1–3 mùi)</span>
           <div class="picks">
-            <label class="pick"><input type="radio" name="scent" value="Tokyo">Tokyo</label>
-            <label class="pick"><input type="radio" name="scent" value="Kuma">Kuma</label>
-            <label class="pick"><input type="radio" name="scent" value="Hosaka">Hosaka</label>
-            <label class="pick"><input type="radio" name="scent" value="Sande">Sande</label>
-            <label class="pick"><input type="radio" name="scent" value="Kita">Kita</label>
-            <label class="pick"><input type="radio" name="scent" value="Bega">Bega</label>
-            <label class="pick"><input type="radio" name="scent" value="Beba">Beba</label>
-          </div>
-          <p class="pick-desc" id="scentDesc">Bấm vào một mùi để xem giới thiệu ngắn.</p>
-        </div>
-        <div class="field"><span>2. Chọn dung tích</span>
-          <div class="picks sizes">
-            <label class="pick size"><input type="radio" name="size" value="10ml" checked><b>10ml</b><small>322.920đ</small></label>
-            <label class="pick size"><input type="radio" name="size" value="50ml"><b>50ml</b><small>970.920đ</small></label>
-            <label class="pick size"><input type="radio" name="size" value="100ml"><b>100ml</b><small>1.402.920đ</small></label>
-            <label class="pick size"><input type="radio" name="size" value="500ml"><b>500ml</b><small>2.763.936đ</small></label>
+            <label class="pick"><input type="checkbox" name="scent" value="Tokyo">Tokyo</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Kuma">Kuma</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Hosaka">Hosaka</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Sande">Sande</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Kita">Kita</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Bega">Bega</label>
+            <label class="pick"><input type="checkbox" name="scent" value="Beba">Beba</label>
           </div>
         </div>
-        <div class="field"><span>3. Chọn gói</span>
-          <div class="picks deals" id="dealPicks"></div>
-        </div>
-        <div class="sum"><span id="sumText">Chọn mùi để xem giá</span><b id="sumPrice"></b></div>
+        <div class="sum"><span id="sumText">Chưa chọn mùi</span><b id="sumPrice"></b></div>
         <div class="row2">
           <label class="field"><span>Họ tên</span><input name="name" required autocomplete="name" placeholder="Nguyễn Thị An"></label>
           <label class="field"><span>Số điện thoại</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
         </div>
         <label class="field"><span>Địa chỉ nhận hàng</span><textarea name="address" required autocomplete="street-address" placeholder="Số nhà, đường, phường, quận, tỉnh/thành"></textarea></label>
-        <label class="field"><span>Ghi chú</span><input name="note" placeholder="Tên mùi bạn muốn nhận tặng kèm, giờ tiện nhận hàng..."></label>
-        <label class="pick biz-check"><input type="checkbox" name="biz" value="Cần tư vấn doanh nghiệp">Tôi cần tư vấn cho không gian kinh doanh, YOKO gọi tư vấn trước khi giao</label>
-        <p class="err" id="err">Vui lòng chọn mùi và điền họ tên, số điện thoại, địa chỉ.</p>
+        <label class="field"><span>Ghi chú (không bắt buộc)</span><input name="note" placeholder="Giờ tiện nhận, mùi muốn hỏi thêm..."></label>
+        <p class="err" id="errHome">Vui lòng chọn ít nhất 1 mùi và điền họ tên, số điện thoại, địa chỉ.</p>
         <button class="btn btn-gold btn-full" type="submit">Đặt hàng, thanh toán khi nhận <i>↗</i></button>
         <p class="form-note">YOKO chỉ dùng số điện thoại để xác nhận và giao đơn này.</p>
       </form>
       <div class="success" role="status"><h3>Đã nhận đơn</h3><p class="center">YOKO sẽ gọi xác nhận trong 15 phút giờ hành chính. Cần gấp, gọi <a href="tel:0985909803">0985 909 803</a>.</p></div>
+    </div>
+
+    <div class="panel" id="panel-biz" role="tabpanel">
+      <form id="formBiz" novalidate>
+        <div class="row2">
+          <label class="field"><span>Họ tên</span><input name="name" required autocomplete="name" placeholder="Nguyễn Văn An"></label>
+          <label class="field"><span>Số điện thoại</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span>Loại hình không gian</span>
+            <select name="space" required>
+              <option value="">Chọn</option>
+              <option>Khách sạn, resort</option><option>Spa, salon, phòng khám</option><option>Showroom, cửa hàng</option><option>Văn phòng, toà nhà</option><option>Nhà hàng, cafe, lounge</option><option>Bất động sản, nhà mẫu</option><option>Khác</option>
+            </select></label>
+          <label class="field"><span>Diện tích ước tính</span><input name="area" inputmode="numeric" placeholder="VD: 200m²"></label>
+        </div>
+        <label class="field"><span>Khu vực cần tạo hương</span><input name="zone" placeholder="VD: sảnh lễ tân, hành lang, phòng VIP..."></label>
+        <label class="field"><span>Ghi chú (không bắt buộc)</span><textarea name="note" placeholder="Cảm giác muốn tạo, mùi đang dùng, muốn mua hay thuê trọn gói..."></textarea></label>
+        <p class="err" id="errBiz">Vui lòng điền họ tên, số điện thoại và loại hình không gian.</p>
+        <button class="btn btn-ink btn-full" type="submit">Đăng ký tư vấn <i>↗</i></button>
+        <p class="form-note">YOKO khảo sát và gửi phương án mùi, thiết bị, định lượng và báo giá. Có phương án thuê trọn gói theo tháng.</p>
+      </form>
+      <div class="success" role="status"><h3>Đã nhận yêu cầu</h3><p class="center">YOKO sẽ gọi lại trong 15 phút giờ hành chính. Cần gấp, gọi <a href="tel:0985909803">0985 909 803</a>.</p></div>
+    </div>
     </div></div>
   </div>
 </section>
@@ -536,8 +552,9 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 </div>
 
 <script>
-// ---- Cấu hình: Google Sheet Web App URL ----
+// ---- Cấu hình: Google Sheet Web App URL và giá chai 10ml (0 = chưa công bố) ----
 const SHEET_URL = "";
+const PRICE_10ML = 0;
 
 document.documentElement.classList.add('js');
 // màn mở đầu: 1 lần mỗi phiên
@@ -564,68 +581,58 @@ chips.forEach(c=>c.addEventListener('click',()=>{
   cards.forEach(card=>card.classList.toggle('dim',m!=='all'&&!card.dataset.moods.split(' ').includes(m)));
 }));
 
-// ?for=biz : ưu tiên nhánh doanh nghiệp theo nhóm quảng cáo
+// tabs form
+const tabs=[...document.querySelectorAll('.tab')], panels={home:document.getElementById('panel-home'),biz:document.getElementById('panel-biz')};
+function showTab(k){tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.panel===k));Object.entries(panels).forEach(([n,p])=>p.classList.toggle('on',n===k))}
+tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.panel)));
+// ?for=home | ?for=biz : ưu tiên nhánh theo nhóm quảng cáo
 const aud=new URLSearchParams(location.search).get('for');
-const bizBox=document.querySelector('input[name=biz]');
-if(aud==='biz'){
+if(aud==='home'||aud==='biz'){
+  showTab(aud);
   const [btnHome,btnBiz]=document.querySelectorAll('.hero-cta .btn');
-  btnBiz.classList.replace('btn-paper','btn-gold');btnHome.classList.replace('btn-gold','btn-paper');btnBiz.parentNode.prepend(btnBiz);
-  const bar=document.querySelector('.bar .btn-gold');bar.firstChild.textContent='Nhận tư vấn ';
-  bizBox.checked=true;document.body.dataset.for='biz';
-}else if(aud==='home'){document.body.dataset.for='home'}
-document.querySelectorAll('[data-biz]').forEach(a=>a.addEventListener('click',()=>{bizBox.checked=true}));
+  if(aud==='biz'){btnBiz.classList.replace('btn-paper','btn-gold');btnHome.classList.replace('btn-gold','btn-paper');btnBiz.parentNode.prepend(btnBiz);
+    document.querySelectorAll('.bar .btn-gold')[0].textContent='Đăng ký tư vấn ';document.querySelector('.bar .btn-gold').insertAdjacentHTML('beforeend','<i>↗</i>');}
+  document.body.dataset.for=aud;
+}
+document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>showTab(a.dataset.tab)));
 
-// ---- bảng giá & ưu đãi theo dung tích ----
-const DESC={Tokyo:'Sáng sớm ở Kyoto. Trà xanh còn ấm, cửa gỗ vừa mở, gió qua rặng tre. Thanh sạch, tinh tế, thư giãn.',
- Kuma:'Hoa trắng trong bình thuỷ tinh, trái cây vừa rửa. Tươi sáng, thanh lịch, không quá nồng, không phô trương.',
- Hosaka:'Sau cơn mưa đầu hạ. Hoa xanh, tre, hương mưa. Trong trẻo, xanh mát, gần gũi thiên nhiên.',
- Sande:'Ghế da trong thư viện cũ, gỗ sẫm và ánh đèn vàng. Sang trọng, trầm ấm, sâu lắng mà không phô trương.',
- Kita:'Một gallery vắng. Trầm hương thoảng qua hoa xanh. Nghệ thuật, độc đáo, hơi bí ẩn, lạ tới mức khó đoán.',
- Bega:'Vỏ cam vừa bóc trên bàn gỗ sáng. Citrus, gỗ, musk. Tươi sáng, nhẹ nhàng, đầy sức sống.',
- Beba:'Hiên gỗ nhìn ra biển, lá dừa và nước mát. Tropical, aquatic, green woody. Xanh mát, thư thái, tự nhiên.'};
-const DEALS={
- '10ml':[{id:'1',label:'Mua 1 chai',total:322920},{id:'2+1',label:'Mua 2 tặng 1',sub:'Giá gốc 968.760đ',total:645840,gift:'1 chai 10ml'}],
- '50ml':[{id:'1',label:'Mua 1 chai',total:970920},{id:'2+1',label:'Mua 2 tặng 1, freeship',sub:'Giá gốc 2.912.760đ',total:1941840,gift:'1 chai 50ml',ship:true}],
- '100ml':[{id:'1',label:'Mua 1 chai, freeship',total:1402920,ship:true},{id:'2+2x10',label:'Mua 2 chai, tặng 2 chai 10ml, freeship',sub:'Giá gốc 3.451.680đ',total:2805840,gift:'2 chai 10ml',ship:true}],
- '500ml':[{id:'-20%',label:'Giảm 20%, freeship',sub:'Giá gốc 3.454.920đ',total:2763936,ship:true}]
-};
+// tóm tắt chọn mùi
 const fmt=n=>n.toLocaleString('vi-VN')+'đ';
-const form=document.getElementById('orderForm'), dealBox=document.getElementById('dealPicks');
-const sumText=document.getElementById('sumText'), sumPrice=document.getElementById('sumPrice'), scentDesc=document.getElementById('scentDesc');
-function curDeal(){const size=form.size.value;return DEALS[size].find(d=>d.id===(form.deal&&form.deal.value))||DEALS[size][0]}
-function renderDeals(){
-  const size=form.size.value;
-  dealBox.innerHTML=DEALS[size].map((d,i)=>`<label class="pick deal"><input type="radio" name="deal" value="${d.id}"${i===0?' checked':''}><span>${d.label}</span>${d.sub?`<small>${d.sub}</small>`:'<small>Giá niêm yết</small>'}<b>${fmt(d.total)}</b></label>`).join('');
-  sum();
-}
+const home=document.getElementById('formHome');
 function sum(){
-  const scent=form.scent.value, size=form.size.value, d=curDeal();
-  if(!scent){sumText.textContent='Chọn mùi để xem giá';sumPrice.textContent='';return}
-  sumText.innerHTML=`${scent} · ${size} · ${d.label}`+(d.gift?`<small>Tặng kèm ${d.gift}, ghi tên mùi muốn nhận ở phần ghi chú</small>`:'');
-  sumPrice.textContent=fmt(d.total);
+  const picked=[...home.querySelectorAll('input[name=scent]:checked')].map(i=>i.value);
+  document.getElementById('sumText').textContent=picked.length?`${picked.length} chai 10ml: ${picked.join(', ')}`:'Chưa chọn mùi';
+  document.getElementById('sumPrice').textContent=picked.length&&PRICE_10ML?fmt(picked.length*PRICE_10ML):(picked.length?'Giá báo khi xác nhận':'');
 }
-form.addEventListener('change',e=>{
-  if(e.target.name==='scent'){scentDesc.textContent=DESC[e.target.value]}
-  if(e.target.name==='size'){renderDeals();return}
-  sum();
+home.addEventListener('change',e=>{
+  if(e.target.name==='scent'){
+    const checked=home.querySelectorAll('input[name=scent]:checked');
+    if(checked.length>3){e.target.checked=false}
+    sum();
+  }
 });
-renderDeals();
 
-const phoneOk=p=>/^(0|\+84)\d{8,10}$/.test((p||'').replace(/\s/g,''));
-const err=document.getElementById('err');
-form.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const data=Object.fromEntries(new FormData(form)); const d=curDeal();
-  const isBiz=!!data.biz;
-  if(!data.scent||!data.name.trim()||!phoneOk(data.phone)||(!isBiz&&!data.address.trim())){err.style.display='block';return}
-  err.style.display='none';
-  Object.assign(data,{deal:d.label,total:d.total,gift:d.gift||'',type:isBiz?'Tư vấn doanh nghiệp':'Đặt hàng'});
+async function send(form,data,errEl,validate,event){
+  if(!validate(data)){errEl.style.display='block';return}
+  errEl.style.display='none';
   const btn=form.querySelector('button[type=submit]'); btn.disabled=true; const old=btn.firstChild.textContent; btn.firstChild.textContent='Đang gửi... ';
   try{
     if(SHEET_URL){await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({...data,...utm,time:new Date().toLocaleString('vi-VN'),source:location.href})})}
-    if(window.fbq)fbq('track','Lead',{content_name:`${data.scent} ${data.size}`,content_category:isBiz?'B2B':'Retail',value:d.total,currency:'VND'});
+    if(window.fbq)fbq('track','Lead',event);
     form.classList.add('sent');
-  }catch(_){btn.disabled=false;btn.firstChild.textContent=old;err.textContent='Gửi chưa được, bạn thử lại hoặc gọi 0985 909 803.';err.style.display='block'}
+  }catch(_){btn.disabled=false;btn.firstChild.textContent=old;errEl.textContent='Gửi chưa được, bạn thử lại hoặc gọi 0985 909 803.';errEl.style.display='block'}
+}
+const phoneOk=p=>/^(0|\+84)\d{8,10}$/.test((p||'').replace(/\s/g,''));
+home.addEventListener('submit',e=>{
+  e.preventDefault();
+  const fd=new FormData(home); const data=Object.fromEntries(fd); data.scent=fd.getAll('scent').join(', '); data.type='Đặt 10ml';
+  send(home,data,document.getElementById('errHome'),d=>d.scent&&d.name.trim()&&phoneOk(d.phone)&&d.address.trim(),{content_category:'10ml',content_name:data.scent});
+});
+const biz=document.getElementById('formBiz');
+biz.addEventListener('submit',e=>{
+  e.preventDefault();
+  const data=Object.fromEntries(new FormData(biz)); data.type='Tư vấn doanh nghiệp';
+  send(biz,data,document.getElementById('errBiz'),d=>d.name.trim()&&phoneOk(d.phone)&&d.space,{content_category:'B2B',content_name:data.space});
 });
 </script>
 </body>
