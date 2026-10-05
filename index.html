@@ -69,7 +69,7 @@ section{scroll-margin-top:84px}
 /* nav */
 .nav{position:sticky;top:16px;z-index:30;display:flex;justify-content:center;padding:0 20px;pointer-events:none}
 .nav-pill{pointer-events:auto;display:flex;align-items:center;gap:22px;padding:8px 8px 8px 22px;border-radius:999px;
-  background:rgba(251,249,245,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  background:rgba(251,249,245,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.6),0 1px 0 var(--hair),0 20px 40px -24px rgba(32,27,23,.35)}
 .logo{font-family:var(--serif);font-size:1.45rem;font-weight:500;letter-spacing:.22em;text-decoration:none}
 .nav a.tel{font-size:13px;text-decoration:none;color:var(--ink-2)}
@@ -150,14 +150,19 @@ legend.step-h{margin-bottom:14px}
 .deals{display:grid;gap:8px;margin-top:2px}
 @media(min-width:600px){.deals{grid-template-columns:1fr 1fr}}
 .deal{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;padding-right:44px}
-.deal span{font-size:14px}
-.deal small{grid-column:1;grid-row:2}
-.deal b{grid-column:2;grid-row:1/3;font-family:var(--serif);font-size:1.3rem;font-weight:500;white-space:nowrap}
-@media(max-width:379px){.deal b{white-space:normal}}
+.deal span{font-size:15px;font-weight:400;line-height:1.35}
+.deal small{grid-column:1;grid-row:2;color:var(--gold-2)}
+.deal b{grid-column:2;grid-row:1/3;text-align:right;font-family:var(--serif);font-size:1.3rem;font-weight:500;line-height:1.1;white-space:nowrap}
+.deal b s{display:block;font:300 12px/1.4 var(--sans);color:var(--ink-2)}
+.sub-h{font-size:13px;color:var(--ink-2);margin-top:6px}
 
-.sum{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:16px 18px;background:var(--paper);border-radius:14px;font-size:14px;color:var(--ink-2)}
-.sum b{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--ink);white-space:nowrap}
-.sum small{display:block;font-size:12px;color:var(--gold-2);margin-top:2px}
+.sum{padding:18px;background:var(--paper);border-radius:14px;font-size:14px}
+.sum h4{font:400 13px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);margin-bottom:10px}
+.sum dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
+.sum dt{color:var(--ink-2)}
+.sum dd{text-align:right;color:var(--ink)}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--hair-2);color:var(--ink-2)}
+.sum-total b{font-family:var(--serif);font-size:1.6rem;font-weight:500;color:var(--ink);white-space:nowrap}
 .contact{display:grid;gap:14px}
 .row2{display:grid;gap:14px}
 @media(min-width:600px){.row2{grid-template-columns:1fr 1fr}}
@@ -241,19 +246,21 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
       </fieldset>
 
       <fieldset class="step" data-only="oil">
-        <legend class="step-h">Chọn dung tích và gói</legend>
+        <legend class="step-h">Chọn dung tích và số lượng</legend>
+        <p class="sub-h">Dung tích (giá 1 chai)</p>
         <div class="sizes">
           <label class="pick size"><input type="radio" name="size" value="10ml" checked><b>10ml</b><small>322.920đ</small></label>
           <label class="pick size"><input type="radio" name="size" value="50ml"><b>50ml</b><small>970.920đ</small></label>
           <label class="pick size"><input type="radio" name="size" value="100ml"><b>100ml</b><small>1.402.920đ</small></label>
           <label class="pick size"><input type="radio" name="size" value="500ml"><b>500ml</b><small>3.454.920đ</small></label>
         </div>
+        <p class="sub-h">Số lượng và ưu đãi</p>
         <div class="deals" id="dealPicks"></div>
       </fieldset>
 
       <div class="step contact">
         <h3 class="step-h">Thông tin nhận hàng</h3>
-        <div class="sum"><span id="sumText"></span><b id="sumPrice"></b></div>
+        <div class="sum"><h4>Đơn của bạn</h4><dl id="sumRows"></dl><div class="sum-total"><span>Thanh toán khi nhận</span><b id="sumPrice"></b></div></div>
         <div class="row2">
           <label class="field"><span>Họ tên</span><input name="name" required autocomplete="name" placeholder="Nguyễn Thị An"></label>
           <label class="field"><span>Số điện thoại</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
@@ -322,14 +329,16 @@ const MACHINES=[
  {name:'Aichi',use:'Không gian 10 – 100m²',gift:'100ml',giftValue:1299000,price:2999000,warranty:24,img:'img/may/aichi.webp'}
 ];
 const DEALS={
- '10ml':[{id:'1',label:'Mua 1 chai',total:322920},{id:'2+1',label:'Mua 2 tặng 1',sub:'Giá gốc 968.760đ',total:645840,gift:'1 chai 10ml'}],
- '50ml':[{id:'1',label:'Mua 1 chai',total:970920},{id:'2+1',label:'Mua 2 tặng 1, freeship',sub:'Giá gốc 2.912.760đ',total:1941840,gift:'1 chai 50ml',ship:true}],
- '100ml':[{id:'1',label:'Mua 1 chai, freeship',total:1402920,ship:true},{id:'2+2x10',label:'Mua 2 chai, tặng 2 chai 10ml, freeship',sub:'Giá gốc 3.451.680đ',total:2805840,gift:'2 chai 10ml',ship:true}],
- '500ml':[{id:'1',label:'Mua 1 chai, freeship',total:3454920,ship:true},{id:'-20%',label:'Ưu đãi giảm 20%, freeship',sub:'Giá gốc 3.454.920đ',total:2763936,ship:true}]
+ '10ml':[{id:'1',qty:1,total:322920},{id:'2+1',qty:2,gift:'1 chai 10ml',orig:968760,total:645840}],
+ '50ml':[{id:'1',qty:1,total:970920},{id:'2+1',qty:2,gift:'1 chai 50ml',orig:2912760,total:1941840,ship:true}],
+ '100ml':[{id:'1',qty:1,total:1402920,ship:true},{id:'2+2x10',qty:2,gift:'2 chai 10ml',orig:3451680,total:2805840,ship:true}],
+ '500ml':[{id:'1',qty:1,total:3454920,ship:true},{id:'-20%',qty:1,off:'giảm 20%',orig:3454920,total:2763936,ship:true}]
 };
+const dealTitle=(d,size)=>`${d.qty} chai ${size}`+(d.gift?` + tặng ${d.gift}`:'')+(d.off?`, ${d.off}`:'');
+const dealNote=d=>[d.ship&&'Miễn phí giao hàng',d.orig&&`Tiết kiệm ${fmt(d.orig-d.total)}`].filter(Boolean).join(' · ');
 const fmt=n=>n.toLocaleString('vi-VN')+'đ';
 const $=id=>document.getElementById(id);
-const form=$('orderForm'), dealBox=$('dealPicks'), sumText=$('sumText'), sumPrice=$('sumPrice'), err=$('err');
+const form=$('orderForm'), dealBox=$('dealPicks'), sumRows=$('sumRows'), sumPrice=$('sumPrice'), err=$('err');
 
 $('scentPicks').innerHTML=SCENTS.map(s=>`<label class="pick scent"><input type="radio" name="scent" value="${s.name}"><span class="swatch" style="--c1:${s.c[0]};--c2:${s.c[1]}"></span><h3>${s.name} <small>${s.tag}</small></h3><p class="notes">${s.notes}</p><p class="feel">${s.feel}</p></label>`).join('')
  +`<label class="pick scent ask"><input type="radio" name="scent" value="${ASK}"><h3>Chưa biết – hãy tư vấn cho tôi</h3><p class="feel">Nhân viên sẽ dựa trên không gian và gu mùi của bạn để tư vấn.</p></label>`;
@@ -350,22 +359,30 @@ document.querySelectorAll('[data-branch]').forEach(el=>el.addEventListener('clic
 const curDeal=()=>DEALS[form.size.value].find(d=>d.id===(form.deal&&form.deal.value))||DEALS[form.size.value][0];
 const curMachine=()=>MACHINES.find(m=>m.name===form.machine.value);
 function renderDeals(){
-  dealBox.innerHTML=DEALS[form.size.value].map((d,i)=>`<label class="pick deal"><input type="radio" name="deal" value="${d.id}"${i===0?' checked':''}><span>${d.label}</span><small>${d.sub||'Giá niêm yết'}</small><b>${fmt(d.total)}</b></label>`).join('');
+  const size=form.size.value;
+  dealBox.innerHTML=DEALS[size].map((d,i)=>`<label class="pick deal"><input type="radio" name="deal" value="${d.id}"${i===0?' checked':''}><span>${dealTitle(d,size)}</span><small>${dealNote(d)}</small><b>${d.orig?`<s>${fmt(d.orig)}</s>`:''}${fmt(d.total)}</b></label>`).join('');
   sum();
 }
+const rows=list=>list.filter(r=>r[1]).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
 function sum(){
-  const scent=form.scent.value;
+  const scent=form.scent.value||'Chưa chọn';
   if(branch==='combo'){
     const m=curMachine();
-    if(!m){sumText.textContent='Chọn máy để xem đơn';sumPrice.textContent='';return}
-    sumText.innerHTML=`Máy ${m.name} · tặng ${m.gift} tinh dầu · bảo hành ${m.warranty} tháng`+(scent?`<small>Mùi: ${scent}</small>`:'');
-    sumPrice.textContent=m.price?fmt(m.price):'Báo giá khi xác nhận';
+    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${m.name}, bảo hành ${m.warranty} tháng`:'Chưa chọn'],['Quà tặng',m&&`${m.gift} tinh dầu`],['Mùi tinh dầu',scent]]);
+    sumPrice.textContent=m?(m.price?fmt(m.price):'Báo giá khi xác nhận'):'';
     return;
   }
   const d=curDeal();
-  sumText.innerHTML=`${scent||'Chưa chọn mùi'} · ${form.size.value} · ${d.label}`+(d.gift?`<small>Tặng kèm ${d.gift}, ghi tên mùi muốn nhận ở phần ghi chú</small>`:'');
+  sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${form.size.value}`+(d.off?`, ${d.off}`:'')],['Quà tặng',d.gift&&`${d.gift} (ghi mùi muốn nhận ở ô ghi chú)`],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận']]);
   sumPrice.textContent=fmt(d.total);
 }
+// bấm lại lựa chọn đang tích thì bỏ tích
+const picked={};
+form.addEventListener('click',e=>{
+  const r=e.target;
+  if(r.type!=='radio'||!['scent','machine'].includes(r.name))return;
+  if(picked[r.name]===r.value){r.checked=false;picked[r.name]='';sum()}else picked[r.name]=r.value;
+});
 form.addEventListener('change',e=>{if(e.target.name==='size'){renderDeals();return}sum()});
 renderDeals();
 setBranch(q.get('for'));
@@ -381,7 +398,7 @@ function invalid(data){
 }
 function orderOf(data){
   if(branch==='combo'){const m=curMachine();return {type:'Combo máy & tinh dầu',machine:m.name,size:m.gift,deal:`Máy ${m.name}, tặng ${m.gift} tinh dầu`,total:m.price||'',gift:`${m.gift} ${data.scent}`}}
-  const d=curDeal();return {type:'Tinh dầu',machine:'',deal:d.label,total:d.total,gift:d.gift||''}
+  const d=curDeal();return {type:'Tinh dầu',machine:'',deal:dealTitle(d,data.size),total:d.total,gift:d.gift||''}
 }
 form.addEventListener('submit',async e=>{
   e.preventDefault();
