@@ -465,8 +465,8 @@ function sum(){
   if(branch==='combo'){
     const m=curMachine(), n=mqtyOf();
     stepState(form.mqty,n); $('mqtyUnit').textContent=m?`máy ${m.name}`:'máy'; $('mqtyPrice').textContent=m?fmt(n*m.price):'';
-    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${n} máy ${m.name} × ${fmt(m.price)}`:'Chưa chọn'],['Bảo hành',m&&`${m.warranty} tháng`],['Tinh dầu tặng kèm',m&&`${n} chai ${m.gift}, ${form.scent.value?'hương '+scent:'chưa chọn mùi'} · <s>${fmt(n*m.giftValue)}</s>0đ`]]);
-    setPrice(m&&n*m.price,m&&n*(m.price+m.giftValue));
+    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${n} máy ${m.name} × ${fmt(m.price)}`:'Chưa chọn'],['Bảo hành',m&&`${m.warranty} tháng`],['Tinh dầu tặng kèm',m&&`1 chai ${m.gift}, ${form.scent.value?'hương '+scent:'chưa chọn mùi'} · <s>${fmt(m.giftValue)}</s>0đ`+(n>1?' (tặng 1 chai mỗi đơn)':'')]]);
+    setPrice(m&&n*m.price,m&&n*m.price+m.giftValue);
     return;
   }
   const d=curDeal();
@@ -503,7 +503,7 @@ function invalid(data){
 }
 function orderOf(data){
   if(isBiz())return {type:'Tư vấn doanh nghiệp',usage:'Không gian kinh doanh',scent:'',machine:'',size:'',deal:'',total:'',gift:''};
-  if(branch==='combo'){const m=curMachine(),n=mqtyOf();return {type:'Combo máy & tinh dầu',qty:n,machine:m.name,size:m.gift,deal:`${n} máy ${m.name}, tặng ${n} chai ${m.gift} tinh dầu`,total:n*m.price,gift:`${n} chai ${m.gift} ${data.scent}`}}
+  if(branch==='combo'){const m=curMachine(),n=mqtyOf();return {type:'Combo máy & tinh dầu',qty:n,machine:m.name,size:m.gift,deal:`${n} máy ${m.name}, tặng 1 chai ${m.gift} tinh dầu`,total:n*m.price,gift:`1 chai ${m.gift} ${data.scent}`}}
   const d=curDeal();return {type:'Tinh dầu',machine:'',qty:d.qty,deal:dealTitle(d),total:d.total,gift:d.gift||''}
 }
 form.addEventListener('submit',async e=>{
