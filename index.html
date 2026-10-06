@@ -520,7 +520,11 @@ form.addEventListener('submit',async e=>{
   Object.assign(data,orderOf(data));
   const btn=submitBtn; btn.disabled=true; const old=btn.firstChild.textContent; btn.firstChild.textContent='Đang gửi... ';
   try{
-    if(SHEET_URL){await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({...data,...utm,time:new Date().toLocaleString('vi-VN'),source:location.href})})}
+    if(SHEET_URL){
+      // Google Sheet ghi mất vài giây: gửi nền (keepalive, vẫn chạy khi khách rời trang), báo thành công sau tối đa 2,5 giây; lỗi mạng tức thì vẫn báo lỗi
+      const req=fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({...data,...utm,time:new Date().toLocaleString('vi-VN'),source:location.href})});
+      await Promise.race([req,new Promise(r=>setTimeout(r,2500))]);
+    }
     if(window.fbq)fbq('track','Lead',{content_name:`${data.machine||data.scent} ${data.size}`,content_category:data.type,value:data.total||0,currency:'VND'});
     form.classList.add('sent');
   }catch(_){btn.disabled=false;btn.firstChild.textContent=old;err.textContent='Gửi chưa được, bạn thử lại hoặc gọi 0985 909 803.';err.style.display='block'}
