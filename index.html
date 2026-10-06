@@ -387,6 +387,8 @@ const MACHINES=[
 ];
 const PRICE={'10ml':322920,'50ml':970920,'100ml':1402920,'500ml':3454920};
 // ưu đãi tự áp theo số chai: every = cứ mua bấy nhiêu chai thì tặng give chai giftSize; off = giảm theo tỉ lệ; ship = từ bao nhiêu chai thì miễn phí giao
+// số lần áp ưu đãi tặng chai trong 1 đơn. Đặt Infinity nếu muốn cộng dồn (cứ 2 chai tặng 1).
+const GIFT_TIMES=1;
 const PROMO={
  '10ml':{every:2,give:1,giftSize:'10ml',ship:0},
  '50ml':{every:2,give:1,giftSize:'50ml',ship:2},
@@ -417,10 +419,10 @@ const isBiz=()=>form.scent.value===BIZ, submitBtn=form.querySelector('button[typ
 const qtyOf=()=>Math.min(99,Math.max(1,parseInt(form.qty.value,10)||1));
 function curDeal(){
   const size=form.size.value, qty=qtyOf(), pr=PROMO[size], paid=qty*PRICE[size];
-  const gifts=pr.every?Math.floor(qty/pr.every)*pr.give:0;
+  const times=pr.every?Math.min(Math.floor(qty/pr.every),GIFT_TIMES):0, gifts=times*(pr.give||0);
   const total=pr.off?Math.round(paid*(1-pr.off)):paid;
   const orig=paid+gifts*(PRICE[pr.giftSize]||0);
-  return {size,qty,total,orig:orig>total?orig:0,off:pr.off?`giảm ${pr.off*100}%`:'',gift:gifts?`${gifts} chai ${pr.giftSize}`:'',ship:!!pr.ship&&qty>=pr.ship,pr};
+  return {size,qty,total,more:!!pr.every&&times<GIFT_TIMES&&qty>=pr.every,orig:orig>total?orig:0,off:pr.off?`giảm ${pr.off*100}%`:'',gift:gifts?`${gifts} chai ${pr.giftSize}`:'',ship:!!pr.ship&&qty>=pr.ship,pr};
 }
 const dealTitle=d=>`${d.qty} chai ${d.size}`+(d.gift?` + tặng ${d.gift}`:'')+(d.off?`, ${d.off}`:'');
 function promoText(d){
@@ -428,7 +430,7 @@ function promoText(d){
   if(pr.off)return `${tag}<span><b>Giảm ${pr.off*100}%</b> mỗi chai ${d.size} · ${free}</span>`;
   const unit=`${pr.give} chai ${pr.giftSize}`, need=pr.every-d.qty%pr.every;
   if(!d.gift)return `${tag}<span>Mua ${pr.every} chai ${d.size} tặng <b>${unit}</b>`+(pr.ship>1?` và ${free.toLowerCase()}`:'')+(d.ship?` · ${free}`:'')+`</span>`;
-  return `${tag}<span>Bạn được tặng <b>${d.gift}</b>`+(d.ship?` · ${free}`:'')+(d.qty%pr.every?` · Thêm ${need} chai để được tặng thêm ${unit}`:'')+`</span>`;
+  return `${tag}<span>Bạn được tặng <b>${d.gift}</b>`+(d.ship?` · ${free}`:'')+(d.more&&d.qty%pr.every?` · Thêm ${need} chai để được tặng thêm ${unit}`:'')+(d.qty>pr.every&&!d.more?' · Ưu đãi tặng áp dụng 1 lần mỗi đơn':'')+`</span>`;
 }
 const curMachine=()=>MACHINES.find(m=>m.name===form.machine.value);
 const setPrice=(total,orig)=>{sumPrice.textContent=total?fmt(total):'';const has=!!(orig&&total&&orig>total);$('sumOrigRow').hidden=$('sumSaveRow').hidden=!has;if(has){$('sumOrig').textContent=fmt(orig);$('sumSave').textContent=fmt(orig-total)}};
