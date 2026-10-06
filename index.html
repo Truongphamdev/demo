@@ -71,15 +71,16 @@ section{scroll-margin-top:84px}
 .nav-pill{pointer-events:auto;display:flex;align-items:center;gap:22px;padding:8px 8px 8px 22px;border-radius:999px;
   background:rgba(251,249,245,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.6),0 1px 0 var(--hair),0 20px 40px -24px rgba(32,27,23,.35)}
-.logo{font-family:var(--serif);font-size:1.3rem;font-weight:600;letter-spacing:.16em;text-decoration:none;white-space:nowrap}
-@media(max-width:379px){.logo{font-size:1.05rem;letter-spacing:.1em}.nav-pill{gap:12px;padding-left:16px}}
-.nav a.tel{font-size:13px;text-decoration:none;color:var(--ink-2)}
-.nav .btn{min-height:42px;padding:0 6px 0 18px;font-size:13px}
-.nav .btn i{width:30px;height:30px;font-size:12px}
+.logo{display:block;text-decoration:none}
+.logo img{height:42px;width:auto}
+@media(max-width:379px){.logo img{height:36px}.nav-pill{gap:12px;padding-left:16px}}
+.nav a.tel{font-size:14px;text-decoration:none;color:var(--ink-2)}
+.nav .btn{min-height:48px;padding:0 7px 0 22px;font-size:16px;font-weight:500}
+.nav .btn i{width:34px;height:34px;font-size:14px}
 @media(max-width:600px){.nav a.tel{display:none}}
 
 /* hero: 2 nhánh */
-.hero{padding:96px 0 56px;margin-top:-58px;text-align:center;background:#4A3E36;color:var(--paper)}
+.hero{padding:104px 0 56px;margin-top:-64px;text-align:center;background:#4A3E36;color:var(--paper)}
 .hero h1{color:var(--paper)}
 .hero .lead{max-width:40em;margin:16px auto 0;font-size:clamp(15px,2.2vw,17px);color:rgba(251,249,245,.9)}
 .hero .go{color:var(--ink)}
@@ -109,7 +110,7 @@ section{scroll-margin-top:84px}
 .tab[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 form{display:grid;gap:34px;counter-reset:step}
 .step{display:grid;gap:14px;min-width:0;border:0}
-.step-h{font-family:var(--serif);font-size:1.75rem;font-weight:700;color:var(--ink);line-height:1.15;counter-increment:step}
+.step-h{font-family:var(--serif);font-size:clamp(1.8rem,5vw,2.2rem);font-weight:700;color:var(--ink);line-height:1.15;counter-increment:step}
 legend.step-h{margin-bottom:14px}
 .step-h::before{content:counter(step) ".";color:var(--gold);margin-right:.35em}
 .step-note{font-size:14px;color:var(--ink-2)}
@@ -123,12 +124,15 @@ legend.step-h{margin-bottom:14px}
 .scents{display:grid;gap:10px}
 @media(min-width:560px){.scents{grid-template-columns:1fr 1fr}}
 @media(min-width:1000px){.scents{grid-template-columns:repeat(4,1fr);gap:12px}}
-.scent{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start;padding:16px}
+.scent{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start;align-content:start;padding:16px}
 @media(min-width:1000px){.scent{grid-template-columns:1fr;gap:6px;padding:20px 18px}}
 .swatch{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--c2),var(--c1) 72%);box-shadow:inset 0 1px 2px rgba(255,255,255,.6),0 10px 18px -12px rgba(32,27,23,.45);grid-row:1/4}
 @media(min-width:1000px){.swatch{grid-row:auto;margin-bottom:6px}}
-.scent h3{font-size:1.75rem;font-weight:700;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding-right:26px}
-.scent h3 small{font:400 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
+@media(min-width:1000px){.scent h3{flex-direction:column;align-items:flex-start;gap:6px}}
+.scent h3{font-size:1.6rem;font-weight:700;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;padding-right:26px}
+.scent h3 span{white-space:nowrap}
+.scent h3 i{font-style:normal;font-weight:400;color:var(--gold)}
+.scent h3 small{font:500 12px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
 .scent .notes{font-size:13.5px;line-height:1.45;color:var(--ink)}
 .scent .feel{font-size:13px;line-height:1.45;color:var(--ink-2)}
 .scent.ask{grid-template-columns:1fr;grid-column:1/-1;box-shadow:inset 0 0 0 1px var(--hair-2);background:transparent;border:1px dashed var(--hair-2);box-shadow:none}
@@ -139,15 +143,16 @@ legend.step-h{margin-bottom:14px}
 @media(min-width:760px){.machines{grid-template-columns:repeat(3,1fr);gap:14px}}
 .machine{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center;padding:10px 14px 10px 10px}
 @media(min-width:760px){.machine{grid-template-columns:1fr;padding:10px 10px 20px;align-items:start}.machine .m-img{aspect-ratio:3/2}.machine>div:last-child{padding:0 10px}}
-.m-img{aspect-ratio:1;border-radius:10px;background:#fff;overflow:hidden;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--hair)}
+.m-img{aspect-ratio:1;border-radius:10px;background:#fff;overflow:hidden;display:grid;place-items:center}
+.m-img::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px var(--hair);pointer-events:none}
 .m-img{position:relative}
 .m-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .m-img span{font-size:11px;color:var(--ink-2);text-align:center;padding:8px;line-height:1.4}
 .machine h3{font-size:1.75rem;font-weight:700;padding-right:26px}
 .machine .m-price{font-family:var(--serif);font-size:1.35rem;font-weight:500;line-height:1.2}
 .machine .use{font-size:13.5px;color:var(--ink-2);margin:2px 0 8px}
-.machine .gift{display:inline-block;font-size:13px;line-height:1.4;color:var(--gold-2);background:rgba(164,126,82,.12);border-radius:8px;padding:6px 10px}
-.machine .gift b{font-weight:500}
+.machine .gift{display:inline-block;font-size:14.5px;font-weight:500;line-height:1.4;color:var(--ink);background:rgba(164,126,82,.24);box-shadow:inset 3px 0 0 var(--gold);border-radius:8px;padding:8px 12px}
+.machine .gift b{font-weight:600}
 
 .sizes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media(min-width:600px){.sizes{grid-template-columns:repeat(4,1fr)}}
@@ -170,9 +175,16 @@ legend.step-h{margin-bottom:14px}
 .sum dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
 .sum dt{color:var(--ink-2)}
 .sum dd{text-align:right;color:var(--ink)}
-.sum-total{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--hair-2);color:var(--ink-2)}
-.sum-total b{font-family:var(--serif);font-size:1.6rem;font-weight:500;color:var(--ink);white-space:nowrap}
+#sumTotal{margin-top:12px;padding-top:12px;border-top:1px solid var(--hair-2);display:grid;gap:6px}
+.sum-line{display:flex;justify-content:space-between;align-items:baseline;gap:14px;color:var(--ink-2)}
+.sum-line s{font-size:15px}
+.sum-line.save b{font-weight:500;color:#B3261E}
+.sum dd s{color:var(--ink-2);margin-right:6px}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;gap:14px;color:var(--ink);font-weight:400}
+.sum-total b{font-family:var(--serif);font-size:1.9rem;font-weight:600;color:var(--ink);white-space:nowrap}
 .contact{display:grid;gap:14px}
+.usage{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.usage .pick{font-size:15px;font-weight:400;padding-right:40px}
 .row2{display:grid;gap:14px}
 @media(min-width:600px){.row2{grid-template-columns:1fr 1fr}}
 .field{display:grid;gap:7px}
@@ -190,7 +202,8 @@ form.sent+.success{display:block}
 /* faq */
 .faq{background:var(--paper);padding:72px 0}
 .faq .wrap{max-width:760px}
-.faq h2{margin-bottom:22px}
+.faq h2{margin-bottom:8px}
+.faq h3{font:500 13px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);margin:30px 0 12px}
 details{border-top:1px solid var(--hair-2)}
 details:last-child{border-bottom:1px solid var(--hair-2)}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-family:var(--serif);font-size:1.35rem;font-weight:600;line-height:1.25}
@@ -199,8 +212,15 @@ summary::after{content:"+";font-family:var(--sans);font-weight:300;font-size:22p
 details[open] summary::after{transform:rotate(45deg)}
 details p{padding:0 0 20px;color:var(--ink-2);font-size:15px;max-width:38em}
 
-footer{padding:44px 0 40px;font-size:13px;color:var(--ink-2)}
-footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
+footer{padding:48px 0 44px;font-size:14px;color:var(--ink-2);display:grid;gap:22px}
+@media(min-width:760px){footer{grid-template-columns:auto 1fr;gap:56px;align-items:center}}
+footer .logo img{height:104px}
+.info{display:grid;gap:8px}
+.info div{display:grid;grid-template-columns:9.5em 1fr;gap:12px}
+.info dt{color:var(--ink-2)}
+.info dd{color:var(--ink);font-weight:400}
+.info a{text-decoration:none;border-bottom:1px solid var(--hair-2)}
+.info a:hover{border-color:var(--ink)}
 
 .bar{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:30;background:rgba(251,249,245,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:999px;padding:8px;display:flex;gap:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 20px 40px -20px rgba(32,27,23,.45)}
 .bar .btn{flex:1;min-height:50px;justify-content:space-between;padding-left:22px}
@@ -212,7 +232,7 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 
 <nav class="nav">
   <div class="nav-pill">
-    <a class="logo" href="#">YOKO JAPAN</a>
+    <a class="logo" href="#"><img src="img/logo/yoko-mark.png" alt="YOKO JAPAN" width="400" height="309"></a>
     <a class="tel" href="tel:0985909803">0985 909 803</a>
     <a class="btn btn-ink" href="#san-pham">Đặt hàng <i>↓</i></a>
   </div>
@@ -268,11 +288,12 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 
       <div class="step contact">
         <h3 class="step-h">Thông tin nhận hàng</h3>
-        <div class="sum"><h4>Đơn của bạn</h4><dl id="sumRows"></dl><div class="sum-total" id="sumTotal"><span>Thanh toán khi nhận</span><b id="sumPrice"></b></div></div>
+        <div class="sum"><h4>Đơn của bạn</h4><dl id="sumRows"></dl><div id="sumTotal"><div class="sum-line" id="sumOrigRow" hidden><span>Giá gốc</span><s id="sumOrig"></s></div><div class="sum-line save" id="sumSaveRow" hidden><span>Bạn tiết kiệm</span><b id="sumSave"></b></div><div class="sum-total"><span>Thanh toán khi nhận</span><b id="sumPrice"></b></div></div></div>
         <div class="row2">
           <label class="field"><span>Họ tên</span><input name="name" required autocomplete="name" placeholder="Nguyễn Thị An"></label>
           <label class="field"><span>Số điện thoại</span><input name="phone" required type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
         </div>
+        <div class="field" id="usageField"><span>Bạn dùng cho</span><div class="usage" role="radiogroup" aria-label="Bạn dùng cho không gian nào"><label class="pick"><input type="radio" name="usage" value="Không gian gia đình">Không gian gia đình</label><label class="pick"><input type="radio" name="usage" value="Không gian kinh doanh">Không gian kinh doanh</label></div></div>
         <label class="field" id="addrField"><span>Địa chỉ nhận hàng</span><textarea name="address" required autocomplete="street-address" placeholder="Số nhà, đường, phường, quận, tỉnh/thành"></textarea></label>
         <label class="field"><span>Ghi chú (không bắt buộc)</span><input name="note" placeholder="Mùi tặng kèm, giờ nhận hàng..."></label>
         <p class="err" id="err" role="alert"></p>
@@ -287,16 +308,41 @@ footer .logo{display:inline-block;margin-bottom:12px;color:var(--ink)}
 <section class="faq">
   <div class="wrap">
     <h2 class="rv">Câu hỏi thường gặp</h2>
+    <h3>Về tinh dầu</h3>
+    <div class="qa">
     <details><summary>Tinh dầu này dùng để làm gì?</summary><p>Dùng cho máy khuếch tán tinh dầu phù hợp, giúp tạo hương thơm cho không gian.</p></details>
     <details><summary>10ml có ít không?</summary><p>10ml được thiết kế như một dung tích trải nghiệm, phù hợp để bạn thử mùi trước khi quyết định sử dụng lâu dài.</p></details>
-    <details><summary>8 mùi khác nhau như thế nào?</summary><p>Mỗi mùi có một cấu trúc hương riêng: từ fruity, floral, citrus đến woody, aromatic, leather, watery và green.</p></details>
     <details><summary>Có thể dùng trực tiếp lên da không?</summary><p>Không sử dụng sản phẩm như nước hoa hoặc bôi trực tiếp lên da. Hãy sử dụng đúng mục đích và hướng dẫn của sản phẩm.</p></details>
+    <details><summary>Có cần pha với nước không?</summary><p>Không. Tinh dầu YOKO dành cho hệ thống máy khuếch tán chuyên dụng được sử dụng trực tiếp, không cần pha với nước.</p></details>
+    <details><summary>Tinh dầu có dùng được cho máy của thương hiệu khác không?</summary><p>Có thể, nếu máy sử dụng công nghệ khuếch tán tinh dầu tương thích. YOKO có thể tư vấn để bạn kiểm tra khả năng tương thích trước khi sử dụng.</p></details>
+    <details><summary>Tinh dầu này có dùng được cho tất cả các loại máy khuếch tán không?</summary><p>Dùng được. Nhưng sẽ khác nhau về độ toả hương nếu công nghệ máy khác nhau.</p></details>
+    <details><summary>Một chai tinh dầu dùng được trong bao lâu?</summary><p>Thời gian sử dụng phụ thuộc vào dung tích, diện tích không gian, công suất máy và thời gian vận hành. YOKO có thể tư vấn định mức sử dụng phù hợp để vừa đảm bảo hiệu quả hương thơm vừa tối ưu chi phí.</p></details>
+    <details><summary>Mùi hương có lưu lâu trong không gian không?</summary><p>Có. Thời gian lưu hương phụ thuộc vào diện tích, độ thông thoáng, vật liệu nội thất, nhiệt độ và thời gian khuếch tán.</p></details>
+    <details><summary>Tinh dầu có khử mùi hôi hay chỉ tạo thêm hương thơm?</summary><p>Tinh dầu khuếch tán chủ yếu giúp tạo trải nghiệm hương thơm và hỗ trợ cải thiện cảm nhận về mùi trong không gian. Không nên xem đây là sản phẩm thay thế cho việc xử lý nguồn gây mùi hoặc hệ thống khử mùi chuyên dụng.</p></details>
+    </div>
+    <h3>Về máy khuếch tán</h3>
+    <div class="qa">
+    <details><summary>Máy khuếch tán hoạt động như thế nào?</summary><p>Máy sử dụng công nghệ khuếch ép lạnh, chuyển tinh dầu thành các hạt hương siêu nhỏ và lan tỏa vào không khí bằng luồng khí. Nhờ đó, hương được phân bổ đều mà không cần đốt hoặc pha loãng với nước.</p></details>
+    <details><summary>Máy có cần đổ nước không?</summary><p>Không. Máy khuếch tán tinh dầu YOKO sử dụng tinh dầu chuyên dụng trực tiếp, không cần pha nước.</p></details>
+    <details><summary>Máy có gây ẩm cho không gian không?</summary><p>Không. Vì máy không sử dụng nước nên không tạo hơi nước và không làm tăng độ ẩm trong không gian.</p></details>
+    <details><summary>Máy có gây tiếng ồn không?</summary><p>Máy được thiết kế để hoạt động ở mức êm và hạn chế tiếng ồn, phù hợp với nhiều không gian như phòng ngủ, văn phòng, spa, khách sạn và showroom.</p></details>
+    <details><summary>Có thể điều chỉnh độ đậm nhạt của hương không?</summary><p>Có. Có thể điều chỉnh cường độ và thời gian khuếch tán trên máy để hương thơm phù hợp với diện tích và đặc điểm từng không gian.</p></details>
+    <details><summary>Có thể cài đặt thời gian và cường độ khuếch tán để tiết kiệm tinh dầu không?</summary><p>Có. Máy có thể thiết lập thời gian hoạt động và cường độ khuếch tán phù hợp với từng không gian. Việc cài đặt đúng giúp duy trì mức hương ổn định, tránh khuếch tán quá mức và tối ưu lượng tinh dầu sử dụng.</p></details>
+    <details><summary>Có cần vệ sinh máy thường xuyên không?</summary><p>Có. Vệ sinh định kỳ giúp máy hoạt động ổn định, khuếch tán tốt và hạn chế ảnh hưởng của cặn tinh dầu. Sẽ có nhân sự kĩ thuật của YOKO JAPAN qua bảo trì định kì cho khách hàng.</p></details>
+    <details><summary>Nếu lâu ngày không sử dụng máy thì tinh dầu trong máy có bị ảnh hưởng không?</summary><p>Nếu không sử dụng trong thời gian dài, nên đổ hết tinh dầu còn lại và vệ sinh máy trước khi bảo quản. Khi sử dụng lại, kiểm tra máy và đường dẫn tinh dầu trước khi vận hành.</p></details>
+    </div>
   </div>
 </section>
 
 <footer class="wrap">
-  <a class="logo" href="#">YOKO JAPAN</a>
-  <p>Hotline 0985 909 803 · admin@yokovn.com · yokovn.com<br>Hải Vân Tower, 129B Trần Đăng Ninh, Cầu Giấy, Hà Nội</p>
+  <a class="logo" href="#"><img src="img/logo/yoko.png" alt="YOKO JAPAN, Scent Marketing For Business" width="480" height="416" loading="lazy"></a>
+  <dl class="info">
+    <div><dt>Hotline</dt><dd><a href="tel:0985909803">0985 909 803</a></dd></div>
+    <div><dt>Email</dt><dd><a href="mailto:admin@yokovn.com">admin@yokovn.com</a></dd></div>
+    <div><dt>Website</dt><dd><a href="https://yokovn.com" target="_blank" rel="noopener">yokovn.com</a></dd></div>
+    <div><dt>Địa chỉ văn phòng</dt><dd>Hải Vân Tower, 129B Trần Đăng Ninh, Cầu Giấy, Hà Nội</dd></div>
+    <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/tinhdauyoko/" target="_blank" rel="noopener">YOKO JAPAN</a></dd></div>
+  </dl>
 </footer>
 
 <div class="bar">
@@ -320,14 +366,14 @@ document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.addEventListener('clic
 // ---- sản phẩm ----
 const BIZ='Doanh nghiệp, cần tư vấn máy công suất lớn';
 const SCENTS=[
- {name:'Tokyo',tag:'Thanh sạch',notes:'Trà xanh · Thảo mộc · Gỗ tre · Amber Musk',feel:'Thanh sạch, xanh, tinh tế, có chiều sâu',c:['#B9C9A4','#EEEAD2']},
- {name:'Kuma',tag:'Thanh lịch',notes:'Trái cây tươi · Hoa trắng · Hoa sen · Amber',feel:'Tươi sáng, thanh lịch, mềm mại',c:['#F1D3D6','#FBF1E4']},
- {name:'Hosaka',tag:'Trong trẻo',notes:'Hoa xanh · Tre · Hương mưa · Amber',feel:'Trong trẻo, xanh mát, sạch, gần gũi thiên nhiên',c:['#BCD5D2','#E9F1EC']},
- {name:'Sande',tag:'Sang trọng',notes:'Woody · Leather · Musky',feel:'Nam tính, sang, trầm, lạnh',c:['#6B4B37','#B98F66']},
+ {name:'Tokyo',tag:'Thanh sạch',notes:'Green tea · Thảo mộc · Bamboo Woody · Amber Musk',feel:'Thanh sạch, xanh, tinh tế, có chiều sâu',c:['#B9C9A4','#EEEAD2']},
+ {name:'Kuma',tag:'Thanh lịch',notes:'Fruity · White Floral · Lotus · Amber',feel:'Tươi sáng, thanh lịch, mềm mại',c:['#F1D3D6','#FBF1E4']},
+ {name:'Hosaka',tag:'Trong trẻo',notes:'Green Floral · Bamboo · Green · Amber',feel:'Trong trẻo, xanh mát, sạch, gần gũi thiên nhiên',c:['#BCD5D2','#E9F1EC']},
+ {name:'Sande',tag:'Trầm ấm',notes:'Woody · Leather · Musky',feel:'Trầm ấm, tinh tế, sang trọng, cuốn hút, bí ẩn',c:['#6B4B37','#B98F66']},
  {name:'Bijin',tag:'Sang trọng',notes:'Citrus · Tea · Fresh Woody · Amber Musk',feel:'Thanh sạch, tinh tế, thư thái, sang trọng, có chiều sâu',c:['#C9B58A','#F4ECD6']},
- {name:'Kita',tag:'Bí ẩn',notes:'Xanh · Hoa · Incense',feel:'Nghệ thuật, độc đáo, sâu, hơi bí ẩn, xanh mát',c:['#4A5A4C','#A3AD91']},
+ {name:'Kita',tag:'Bí ẩn',notes:'Green · Floral · Incense',feel:'Nghệ thuật, độc đáo, sâu, hơi bí ẩn, xanh mát',c:['#4A5A4C','#A3AD91']},
  {name:'Bega',tag:'Thanh sạch',notes:'Citrus · Woody · Musk',feel:'Sạch, thanh lịch, tươi sáng, dễ chịu',c:['#EFC46A','#FBE9BC']},
- {name:'Beba',tag:'Thư giãn',notes:'Tropical · Aquatic · Green Woody',feel:'Tươi mát, xanh, năng động, nghỉ dưỡng',c:['#86C3BB','#D9EFE6']}
+ {name:'Beba',tag:'Thư giãn',notes:'Tropical · Aquatic · Green Woody',feel:'Tươi mát, thư giãn xanh, năng động, nghỉ dưỡng',c:['#86C3BB','#D9EFE6']}
 ];
 // price: giá combo (số, VND). Để null thì hiện "Báo giá khi xác nhận". img: null thì hiện ô chờ ảnh.
 const MACHINES=[
@@ -347,7 +393,7 @@ const fmt=n=>n.toLocaleString('vi-VN')+'đ';
 const $=id=>document.getElementById(id);
 const form=$('orderForm'), dealBox=$('dealPicks'), sumRows=$('sumRows'), sumPrice=$('sumPrice'), err=$('err');
 
-$('scentPicks').innerHTML=SCENTS.map(s=>`<label class="pick scent"><input type="radio" name="scent" value="${s.name}"><span class="swatch" style="--c1:${s.c[0]};--c2:${s.c[1]}"></span><h3>${s.name} <small>${s.tag}</small></h3><p class="notes">${s.notes}</p><p class="feel">${s.feel}</p></label>`).join('')
+$('scentPicks').innerHTML=SCENTS.map(s=>`<label class="pick scent"><input type="radio" name="scent" value="${s.name}"><span class="swatch" style="--c1:${s.c[0]};--c2:${s.c[1]}"></span><h3><span>Hương ${s.name}</span><span><i>—</i> <small>${s.tag}</small></span></h3><p class="notes">${s.notes}</p><p class="feel">${s.feel}</p></label>`).join('')
  +`<label class="pick scent ask"><input type="radio" name="scent" value="${BIZ}"><p class="biz-txt">Nếu bạn là doanh nghiệp, cần dòng máy công suất lớn, hãy để lại số điện thoại, nhân viên sẽ liên hệ tư vấn.</p></label>`;
 $('machinePicks').innerHTML=MACHINES.map(m=>`<label class="pick machine"><input type="radio" name="machine" value="${m.name}"><div class="m-img">${m.img?`<img src="${m.img}" alt="Máy khuếch tán YOKO ${m.name}" width="720" height="720" loading="lazy">`:'<span>Ảnh đang cập nhật</span>'}</div><div><h3>${m.name}</h3><p class="m-price">${m.price?fmt(m.price):'Báo giá khi xác nhận'}</p><p class="use">${m.use} · Bảo hành ${m.warranty} tháng</p><p class="gift">Tặng <b>${m.gift} tinh dầu</b> trị giá ${fmt(m.giftValue)}</p></div></label>`).join('');
 
@@ -371,22 +417,23 @@ function renderDeals(){
   dealBox.innerHTML=DEALS[size].map((d,i)=>`<div class="deal-col"><p class="sub-h${i?' hot':''}">${i?'ƯU ĐÃI':'Số lượng'}</p><label class="pick deal"><input type="radio" name="deal" value="${d.id}"${i===0?' checked':''}><span>${dealTitle(d,size)}</span><small>${dealNote(d)}</small><b>${d.orig?`<s>${fmt(d.orig)}</s>`:''}${fmt(d.total)}</b></label></div>`).join('');
   sum();
 }
+const setPrice=(total,orig)=>{sumPrice.textContent=total?fmt(total):'';const has=!!(orig&&total&&orig>total);$('sumOrigRow').hidden=$('sumSaveRow').hidden=!has;if(has){$('sumOrig').textContent=fmt(orig);$('sumSave').textContent=fmt(orig-total)}};
 const rows=list=>list.filter(r=>r[1]).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
 function sum(){
   const scent=form.scent.value||'Chưa chọn', biz=isBiz();
   form.querySelector('[data-only=oil]').hidden=branch!=='oil'||biz;
-  $('addrField').hidden=$('sumTotal').hidden=biz;
+  $('addrField').hidden=$('sumTotal').hidden=$('usageField').hidden=biz;
   submitBtn.firstChild.textContent=biz?'Gửi yêu cầu tư vấn ':'Đặt hàng, thanh toán khi nhận ';
   if(biz){sumRows.innerHTML=rows([['Yêu cầu','Tư vấn máy công suất lớn cho doanh nghiệp'],['Liên hệ','Nhân viên gọi lại theo số điện thoại bạn để lại']]);return}
   if(branch==='combo'){
     const m=curMachine();
-    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${m.name}, bảo hành ${m.warranty} tháng`:'Chưa chọn'],['Quà tặng',m&&`${m.gift} tinh dầu`],['Mùi tinh dầu',scent]]);
-    sumPrice.textContent=m?(m.price?fmt(m.price):'Báo giá khi xác nhận'):'';
+    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${m.name}, bảo hành ${m.warranty} tháng · ${fmt(m.price)}`:'Chưa chọn'],['Tinh dầu tặng kèm',m&&`${m.gift} hương ${scent} · <s>${fmt(m.giftValue)}</s>0đ`]]);
+    setPrice(m&&m.price,m&&m.price+m.giftValue);
     return;
   }
   const d=curDeal();
   sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${form.size.value}`+(d.off?`, ${d.off}`:'')],['Quà tặng',d.gift&&`${d.gift} (ghi mùi muốn nhận ở ô ghi chú)`],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận']]);
-  sumPrice.textContent=fmt(d.total);
+  setPrice(d.total,d.orig);
 }
 // bấm lại lựa chọn đang tích thì bỏ tích
 const picked={};
@@ -406,11 +453,12 @@ function invalid(data){
   if(!data.scent)return 'Vui lòng chọn mùi.';
   if(!data.name.trim())return 'Vui lòng điền họ tên.';
   if(!phoneOk(data.phone))return 'Số điện thoại chưa đúng, bạn kiểm tra lại giúp YOKO.';
+  if(!biz&&!data.usage)return 'Vui lòng chọn bạn dùng cho không gian gia đình hay kinh doanh.';
   if(!biz&&!data.address.trim())return 'Vui lòng điền địa chỉ nhận hàng.';
   return '';
 }
 function orderOf(data){
-  if(isBiz())return {type:'Tư vấn doanh nghiệp',scent:'',machine:'',size:'',deal:'',total:'',gift:''};
+  if(isBiz())return {type:'Tư vấn doanh nghiệp',usage:'Không gian kinh doanh',scent:'',machine:'',size:'',deal:'',total:'',gift:''};
   if(branch==='combo'){const m=curMachine();return {type:'Combo máy & tinh dầu',machine:m.name,size:m.gift,deal:`Máy ${m.name}, tặng ${m.gift} tinh dầu`,total:m.price||'',gift:`${m.gift} ${data.scent}`}}
   const d=curDeal();return {type:'Tinh dầu',machine:'',deal:dealTitle(d,data.size),total:d.total,gift:d.gift||''}
 }
