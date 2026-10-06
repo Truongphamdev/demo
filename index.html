@@ -280,6 +280,10 @@ footer .logo img{height:104px}
       <fieldset class="step" data-only="combo" hidden>
         <legend class="step-h">Chọn máy khuếch tán</legend>
         <div class="machines" id="machinePicks"></div>
+        <div class="qd">
+          <p class="sub-h">Số lượng</p>
+          <div class="pick qty-card"><div class="qty"><button type="button" data-q="-1" aria-label="Giảm 1 máy">−</button><input name="mqty" type="number" inputmode="numeric" min="1" max="99" value="1" aria-label="Số lượng máy"><button type="button" data-q="1" aria-label="Thêm 1 máy">+</button></div><span id="mqtyUnit"></span><b id="mqtyPrice"></b></div>
+        </div>
       </fieldset>
 
       <fieldset class="step">
@@ -430,7 +434,9 @@ function setBranch(b){
 document.querySelectorAll('[data-branch]').forEach(el=>el.addEventListener('click',()=>setBranch(el.dataset.branch)));
 
 const isBiz=()=>form.scent.value===BIZ, submitBtn=form.querySelector('button[type=submit]');
-const qtyOf=()=>Math.min(99,Math.max(1,parseInt(form.qty.value,10)||1));
+const clampQ=i=>Math.min(99,Math.max(1,parseInt(i.value,10)||1));
+const qtyOf=()=>clampQ(form.qty), mqtyOf=()=>clampQ(form.mqty);
+const stepState=(i,n)=>{i.parentNode.querySelector('[data-q="-1"]').disabled=n<=1;i.parentNode.querySelector('[data-q="1"]').disabled=n>=99};
 function curDeal(){
   const size=form.size.value, qty=qtyOf(), pr=PROMO[size], paid=qty*PRICE[size];
   const times=pr.every?Math.min(Math.floor(qty/pr.every),GIFT_TIMES):0, gifts=times*(pr.give||0);
@@ -457,15 +463,16 @@ function sum(){
   submitBtn.firstChild.textContent=biz?'Gửi yêu cầu tư vấn ':'Đặt hàng, thanh toán khi nhận ';
   if(biz){sumRows.innerHTML=rows([['Yêu cầu','Tư vấn máy công suất lớn cho doanh nghiệp'],['Liên hệ','Nhân viên gọi lại theo số điện thoại bạn để lại']]);return}
   if(branch==='combo'){
-    const m=curMachine();
-    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${m.name}, bảo hành ${m.warranty} tháng · ${fmt(m.price)}`:'Chưa chọn'],['Tinh dầu tặng kèm',m&&`${m.gift} hương ${scent} · <s>${fmt(m.giftValue)}</s>0đ`]]);
-    setPrice(m&&m.price,m&&m.price+m.giftValue);
+    const m=curMachine(), n=mqtyOf();
+    stepState(form.mqty,n); $('mqtyUnit').textContent=m?`máy ${m.name}`:'máy'; $('mqtyPrice').textContent=m?fmt(n*m.price):'';
+    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${n} máy ${m.name} × ${fmt(m.price)}`:'Chưa chọn'],['Bảo hành',m&&`${m.warranty} tháng`],['Tinh dầu tặng kèm',m&&`${n} chai ${m.gift}, ${form.scent.value?'hương '+scent:'chưa chọn mùi'} · <s>${fmt(n*m.giftValue)}</s>0đ`]]);
+    setPrice(m&&n*m.price,m&&n*(m.price+m.giftValue));
     return;
   }
   const d=curDeal();
   const card=promoCard(d); if(promoBox.dataset.h!==card){promoBox.innerHTML=card;promoBox.dataset.h=card} promoBox.classList.toggle('on',promoOn(d)); promoBox.setAttribute('aria-pressed',promoOn(d));
   $('qtyUnit').textContent=`chai ${d.size}`; $('qtyPrice').innerHTML=(d.off?`<s>${fmt(d.qty*PRICE[d.size])}</s>`:'')+fmt(d.total);
-  form.querySelector('[data-q="-1"]').disabled=d.qty<=1; form.querySelector('[data-q="1"]').disabled=d.qty>=99;
+  stepState(form.qty,d.qty);
   sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${d.size} × ${fmt(PRICE[d.size])}`+(d.off?`, ${d.off}`:'')],['Quà tặng',d.gift&&`${d.gift} (ghi mùi muốn nhận ở ô ghi chú)`],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận']]);
   setPrice(d.total,d.orig);
 }
@@ -476,11 +483,10 @@ form.addEventListener('click',e=>{
   if(r.type!=='radio'||!['scent','machine'].includes(r.name))return;
   if(picked[r.name]===r.value){r.checked=false;picked[r.name]='';sum()}else picked[r.name]=r.value;
 });
-form.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;form.qty.value=Math.min(99,Math.max(1,qtyOf()+ +b.dataset.q));sum()});
+form.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;const i=b.parentNode.querySelector('input');i.value=Math.min(99,Math.max(1,clampQ(i)+ +b.dataset.q));sum()});
 // bấm thẻ ưu đãi: lấy đúng số chai của ưu đãi; bấm lại khi đang đúng số đó thì về 1 chai
 promoBox.addEventListener('click',()=>{const d=curDeal();if(d.pr.off)return;form.qty.value=d.qty===d.pr.every?1:d.pr.every;sum()});
-form.qty.addEventListener('input',sum);
-form.qty.addEventListener('blur',()=>{form.qty.value=qtyOf();sum()});
+[form.qty,form.mqty].forEach(i=>{i.addEventListener('input',sum);i.addEventListener('blur',()=>{i.value=clampQ(i);sum()})});
 form.addEventListener('change',sum);
 setBranch(q.get('for'));
 
@@ -497,7 +503,7 @@ function invalid(data){
 }
 function orderOf(data){
   if(isBiz())return {type:'Tư vấn doanh nghiệp',usage:'Không gian kinh doanh',scent:'',machine:'',size:'',deal:'',total:'',gift:''};
-  if(branch==='combo'){const m=curMachine();return {type:'Combo máy & tinh dầu',qty:1,machine:m.name,size:m.gift,deal:`Máy ${m.name}, tặng ${m.gift} tinh dầu`,total:m.price||'',gift:`${m.gift} ${data.scent}`}}
+  if(branch==='combo'){const m=curMachine(),n=mqtyOf();return {type:'Combo máy & tinh dầu',qty:n,machine:m.name,size:m.gift,deal:`${n} máy ${m.name}, tặng ${n} chai ${m.gift} tinh dầu`,total:n*m.price,gift:`${n} chai ${m.gift} ${data.scent}`}}
   const d=curDeal();return {type:'Tinh dầu',machine:'',qty:d.qty,deal:dealTitle(d),total:d.total,gift:d.gift||''}
 }
 form.addEventListener('submit',async e=>{
