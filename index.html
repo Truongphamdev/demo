@@ -158,17 +158,28 @@ legend.step-h{margin-bottom:14px}
 @media(min-width:600px){.sizes{grid-template-columns:repeat(4,1fr)}}
 .size b{display:block;font-family:var(--serif);font-size:1.4rem;font-weight:500;line-height:1.1}
 .size small{font-size:12px;color:var(--ink-2)}
-.qty{justify-self:start;display:inline-flex;align-items:center;background:var(--paper);box-shadow:inset 0 0 0 1px var(--hair-2);border-radius:999px;padding:5px}
+.qd{display:grid;gap:10px;max-width:540px}
+.qd .hot{margin-top:4px}
+.qty-card{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 16px 8px 8px;cursor:default;font-size:15px;font-weight:400}
+.qty-card b,.deal b{margin-left:auto;text-align:right;font-family:var(--serif);font-size:1.3rem;font-weight:500;line-height:1.1;white-space:nowrap}
+.qty-card b s,.deal b s{display:block;font:300 12px/1.4 var(--sans);color:var(--ink-2)}
+.deal{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;width:100%;border:0;text-align:left;font-family:var(--sans);color:var(--ink);padding:14px 16px}
+.deal span{font-size:15px;font-weight:400;line-height:1.35}
+.deal small{grid-column:1;grid-row:2;font-size:12px;line-height:1.4;color:var(--gold-2)}
+.deal b{grid-column:2;grid-row:1/3}
+.deal.on{box-shadow:inset 0 0 0 2px var(--ink);background:#fff;padding-right:46px}
+.deal.on::after{content:"✓";position:absolute;top:50%;right:12px;margin-top:-11px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;display:grid;place-items:center}
+.deal:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.deal>*{pointer-events:none}
+.qty{display:inline-flex;align-items:center}
+.qty-card .qty input{position:static;opacity:1;pointer-events:auto}
 .qty button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;background:var(--bg-2);font:400 22px/1 var(--sans);color:var(--ink);transition:background .3s var(--ease)}
 .qty button:hover{background:#d9cebd}
 .qty button:disabled{opacity:.35;cursor:default}
 .qty button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.qty input{width:64px;text-align:center;background:transparent;box-shadow:none;padding:0;border-radius:0;font:600 1.6rem/1 var(--serif);-moz-appearance:textfield;appearance:textfield}
+.qty input{width:52px;text-align:center;background:transparent;box-shadow:none;padding:0;border-radius:0;font:600 1.6rem/1 var(--serif);-moz-appearance:textfield;appearance:textfield}
 .qty input:focus{box-shadow:none}
 .qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.promo{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;background:rgba(179,38,30,.07);border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.45;color:var(--ink)}
-.promo b{font-weight:600}
-.promo .hot{margin:0}
 .sub-h{font-size:14px;font-weight:500;color:var(--ink);margin-top:6px}
 .sub-h.hot{justify-self:start;font-weight:600;letter-spacing:.08em;color:#fff;background:#B3261E;border-radius:6px;padding:3px 10px}
 
@@ -285,9 +296,12 @@ footer .logo img{height:104px}
           <label class="pick size"><input type="radio" name="size" value="100ml"><b>100ml</b><small>1.402.920đ</small></label>
           <label class="pick size"><input type="radio" name="size" value="500ml"><b>500ml</b><small>3.454.920đ</small></label>
         </div>
-        <p class="sub-h">Số lượng</p>
-        <div class="qty"><button type="button" data-q="-1" aria-label="Giảm 1 chai">−</button><input name="qty" type="number" inputmode="numeric" min="1" max="99" value="1" aria-label="Số lượng chai"><button type="button" data-q="1" aria-label="Thêm 1 chai">+</button></div>
-        <p class="promo" id="promoBox" aria-live="polite"></p>
+        <div class="qd">
+          <p class="sub-h">Số lượng</p>
+          <div class="pick qty-card"><div class="qty"><button type="button" data-q="-1" aria-label="Giảm 1 chai">−</button><input name="qty" type="number" inputmode="numeric" min="1" max="99" value="1" aria-label="Số lượng chai"><button type="button" data-q="1" aria-label="Thêm 1 chai">+</button></div><span id="qtyUnit"></span><b id="qtyPrice"></b></div>
+          <p class="sub-h hot">ƯU ĐÃI</p>
+          <button type="button" class="pick deal" id="promoBox" aria-pressed="false"></button>
+        </div>
       </fieldset>
 
       <div class="step contact">
@@ -425,13 +439,14 @@ function curDeal(){
   return {size,qty,total,more:!!pr.every&&times<GIFT_TIMES&&qty>=pr.every,orig:orig>total?orig:0,off:pr.off?`giảm ${pr.off*100}%`:'',gift:gifts?`${gifts} chai ${pr.giftSize}`:'',ship:!!pr.ship&&qty>=pr.ship,pr};
 }
 const dealTitle=d=>`${d.qty} chai ${d.size}`+(d.gift?` + tặng ${d.gift}`:'')+(d.off?`, ${d.off}`:'');
-function promoText(d){
-  const pr=d.pr, tag='<span class="sub-h hot">ƯU ĐÃI</span>', free='Miễn phí giao hàng';
-  if(pr.off)return `${tag}<span><b>Giảm ${pr.off*100}%</b> mỗi chai ${d.size} · ${free}</span>`;
-  const unit=`${pr.give} chai ${pr.giftSize}`, need=pr.every-d.qty%pr.every;
-  if(!d.gift)return `${tag}<span>Mua ${pr.every} chai ${d.size} tặng <b>${unit}</b>`+(pr.ship>1?` và ${free.toLowerCase()}`:'')+(d.ship?` · ${free}`:'')+`</span>`;
-  return `${tag}<span>Bạn được tặng <b>${d.gift}</b>`+(d.ship?` · ${free}`:'')+(d.more&&d.qty%pr.every?` · Thêm ${need} chai để được tặng thêm ${unit}`:'')+(d.qty>pr.every&&!d.more?' · Ưu đãi tặng áp dụng 1 lần mỗi đơn':'')+`</span>`;
+function promoCard(d){
+  const pr=d.pr, p=PRICE[d.size], free='Miễn phí giao hàng';
+  if(pr.off){const t=Math.round(p*(1-pr.off));return `<span>Giảm ${pr.off*100}% mỗi chai ${d.size}</span><small>${free} · Tiết kiệm ${fmt(p-t)} mỗi chai</small><b><s>${fmt(p)}</s>${fmt(t)}</b>`}
+  const t=pr.every*p, o=t+pr.give*PRICE[pr.giftSize];
+  const note=[pr.ship&&pr.every>=pr.ship&&free,`Tiết kiệm ${fmt(o-t)}`,d.qty>pr.every&&!d.more&&'Áp dụng 1 lần mỗi đơn'].filter(Boolean).join(' · ');
+  return `<span>${pr.every} chai ${d.size} + tặng ${pr.give} chai ${pr.giftSize}</span><small>${note}</small><b><s>${fmt(o)}</s>${fmt(t)}</b>`;
 }
+const promoOn=d=>!!d.pr.off||d.qty>=d.pr.every;
 const curMachine=()=>MACHINES.find(m=>m.name===form.machine.value);
 const setPrice=(total,orig)=>{sumPrice.textContent=total?fmt(total):'';const has=!!(orig&&total&&orig>total);$('sumOrigRow').hidden=$('sumSaveRow').hidden=!has;if(has){$('sumOrig').textContent=fmt(orig);$('sumSave').textContent=fmt(orig-total)}};
 const rows=list=>list.filter(r=>r[1]).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
@@ -448,7 +463,8 @@ function sum(){
     return;
   }
   const d=curDeal();
-  promoBox.innerHTML=promoText(d);
+  const card=promoCard(d); if(promoBox.dataset.h!==card){promoBox.innerHTML=card;promoBox.dataset.h=card} promoBox.classList.toggle('on',promoOn(d)); promoBox.setAttribute('aria-pressed',promoOn(d));
+  $('qtyUnit').textContent=`chai ${d.size}`; $('qtyPrice').innerHTML=(d.off?`<s>${fmt(d.qty*PRICE[d.size])}</s>`:'')+fmt(d.total);
   form.querySelector('[data-q="-1"]').disabled=d.qty<=1; form.querySelector('[data-q="1"]').disabled=d.qty>=99;
   sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${d.size} × ${fmt(PRICE[d.size])}`+(d.off?`, ${d.off}`:'')],['Quà tặng',d.gift&&`${d.gift} (ghi mùi muốn nhận ở ô ghi chú)`],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận']]);
   setPrice(d.total,d.orig);
@@ -461,6 +477,8 @@ form.addEventListener('click',e=>{
   if(picked[r.name]===r.value){r.checked=false;picked[r.name]='';sum()}else picked[r.name]=r.value;
 });
 form.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;form.qty.value=Math.min(99,Math.max(1,qtyOf()+ +b.dataset.q));sum()});
+// bấm thẻ ưu đãi: lấy đúng số chai của ưu đãi; bấm lại khi đang đúng số đó thì về 1 chai
+promoBox.addEventListener('click',()=>{const d=curDeal();if(d.pr.off)return;form.qty.value=d.qty===d.pr.every?1:d.pr.every;sum()});
 form.qty.addEventListener('input',sum);
 form.qty.addEventListener('blur',()=>{form.qty.value=qtyOf();sum()});
 form.addEventListener('change',sum);
