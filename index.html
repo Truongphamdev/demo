@@ -221,6 +221,18 @@ textarea{min-height:84px;resize:vertical}
 form.sent{display:none}
 form.sent+.success{display:block}
 
+/* khách hàng */
+.clients{background:#4A3E36;color:var(--paper);padding:72px 0}
+@media(min-width:900px){.clients{padding:96px 0}}
+.clients h2{color:var(--paper);max-width:15em;margin-bottom:32px}
+.cl{display:grid;gap:12px;padding:24px 0;border-top:1px solid rgba(251,249,245,.16)}
+@media(min-width:760px){.cl{grid-template-columns:210px minmax(0,1fr);gap:32px;padding:30px 0}}
+.cl h3{font:500 13px/1.6 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#D9B98C}
+.cl ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 0;font-family:var(--serif);font-size:clamp(1.15rem,3.6vw,1.4rem);font-weight:500;line-height:1.25}
+.cl li{white-space:nowrap}
+.cl li:not(:last-child)::after{content:"·";margin:0 .55em;color:#D9B98C}
+.cl-more{padding-top:22px;border-top:1px solid rgba(251,249,245,.16);font-size:14px;color:rgba(251,249,245,.7)}
+
 /* faq */
 .faq{background:var(--paper);padding:72px 0}
 .faq .wrap{max-width:760px}
@@ -334,6 +346,16 @@ footer .logo img{height:104px}
       </div>
     </form>
     <div class="success" role="status"><h3>Đã nhận đơn</h3><p>YOKO sẽ gọi xác nhận trong 15 phút giờ hành chính. Cần gấp, gọi <a href="tel:0985909803">0985 909 803</a>.</p></div>
+  </div>
+</section>
+
+<section class="clients">
+  <div class="wrap">
+    <h2 class="rv">Những không gian đang dùng hương thơm YOKO JAPAN</h2>
+    <div class="cl"><h3>Toà nhà, khách sạn</h3><ul><li>Marina Central</li><li>Sofitel Legend Metropole Hanoi</li><li>Fairmont Hanoi Hotel</li><li>Grand Mercure Hanoi</li><li>Techcombank</li><li>Vietcombank</li><li>VPBank</li><li>OceanBank</li><li>Masterise</li><li>CapitaLand</li><li>BRG Group</li><li>Grand Terra</li><li>T&amp;T Building</li><li>HUD Tower</li><li>Geleximco</li><li>Vinhomes Metropolis</li><li>Heritage West Lake</li><li>Grand Hotel du Lac Hanoi</li><li>La Siesta Hotel</li><li>Tiến Bộ Plaza</li><li>The Marc 88</li><li>Đại học Thăng Long</li></ul></div>
+    <div class="cl"><h3>Bệnh viện, beauty</h3><ul><li>Bệnh viện Phương Đông</li><li>Phương Đông Asahi</li><li>Viện thẩm mỹ Kangnam</li><li>Viện thẩm mỹ Sejung</li><li>Bệnh viện Hồng Ngọc</li></ul></div>
+    <div class="cl"><h3>Showroom, thời trang</h3><ul><li>JM Dress Design</li><li>Krik</li><li>Mialala</li><li>NTK Hà Duy</li><li>Tiin Store</li><li>Happy Hahaha shop</li></ul></div>
+    <p class="cl-more">Cùng nhiều khách hàng doanh nghiệp và cá nhân khác.</p>
   </div>
 </section>
 
