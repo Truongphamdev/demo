@@ -172,6 +172,7 @@ legend.step-h{margin-bottom:14px}
 .qty-card{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:8px 16px 8px 8px;cursor:default;font-size:15px;font-weight:400}
 .qty-card b,.deal b{margin-left:auto;text-align:right;font-family:var(--serif);font-size:1.3rem;font-weight:500;line-height:1.1;white-space:nowrap}
 .qty-card b s,.deal b s{display:block;font:300 12px/1.4 var(--sans);color:var(--ink-2)}
+.deals{display:grid;gap:8px}
 .deal{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2px 12px;width:100%;border:0;text-align:left;font-family:var(--sans);color:var(--ink);padding:14px 16px}
 .deal span{font-size:15px;font-weight:400;line-height:1.35}
 .deal small{grid-column:1;grid-row:2;font-size:12px;line-height:1.4;color:var(--gold-2)}
@@ -181,6 +182,8 @@ legend.step-h{margin-bottom:14px}
 .deal:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .deal>*{pointer-events:none}
 .qty{display:inline-flex;align-items:center}
+.gift-line{font-size:14px;line-height:1.5;color:var(--ink);background:rgba(164,126,82,.14);border-radius:12px;padding:10px 14px}
+.gift-line b{font-weight:600}
 .qty-card .qty input{position:static;opacity:1;pointer-events:auto}
 .qty button{width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;background:var(--bg-2);font:400 22px/1 var(--sans);color:var(--ink);transition:background .3s var(--ease)}
 .qty button:hover{background:#d9cebd}
@@ -300,7 +303,7 @@ footer .logo img{height:104px}
     <form id="orderForm" novalidate>
       <fieldset class="step" data-only="combo" hidden>
         <legend class="step-h">Chọn máy khuếch tán</legend>
-        <p class="sub-h">Giá máy đã bao gồm 8% VAT</p>
+        <p class="sub-h">Giá máy đã bao gồm 8% VAT · Miễn phí giao hàng</p>
         <div class="machines" id="machinePicks"></div>
         <div class="qd">
           <p class="sub-h">Số lượng</p>
@@ -315,7 +318,7 @@ footer .logo img{height:104px}
 
       <fieldset class="step" data-only="oil">
         <legend class="step-h">Chọn dung tích và số lượng</legend>
-        <p class="sub-h">Dung tích (Giá 1 chai đã bao gồm 8% VAT)</p>
+        <p class="sub-h">Dung tích (Giá 1 chai đã bao gồm 8% VAT) · Đơn trên 1.000.000đ miễn phí giao hàng</p>
         <div class="sizes">
           <label class="pick size"><input type="radio" name="size" value="10ml" checked><b>10ml</b><small>322.920đ</small></label>
           <label class="pick size"><input type="radio" name="size" value="50ml"><b>50ml</b><small>970.920đ</small></label>
@@ -325,8 +328,9 @@ footer .logo img{height:104px}
         <div class="qd">
           <p class="sub-h">Số lượng</p>
           <div class="pick qty-card"><div class="qty"><button type="button" data-q="-1" aria-label="Giảm 1 chai">−</button><input name="qty" type="number" inputmode="numeric" min="1" max="99" value="1" aria-label="Số lượng chai"><button type="button" data-q="1" aria-label="Thêm 1 chai">+</button></div><span id="qtyUnit"></span><b id="qtyPrice"></b></div>
+          <p class="gift-line" id="giftLine" hidden></p>
           <p class="sub-h hot">ƯU ĐÃI</p>
-          <button type="button" class="pick deal" id="promoBox" aria-pressed="false"></button>
+          <div class="deals" id="promoBox"></div>
         </div>
       </fieldset>
 
@@ -436,14 +440,18 @@ const MACHINES=[
  {name:'Aichi',use:'Không gian 10 – 100m²',gift:'100ml',giftValue:1402920,price:3238920,warranty:24,img:'img/may/aichi.webp'}
 ];
 const PRICE={'10ml':322920,'50ml':970920,'100ml':1402920,'500ml':3454920};
-// ưu đãi tự áp theo số chai: every = cứ mua bấy nhiêu chai thì tặng give chai giftSize; off = giảm theo tỉ lệ; ship = từ bao nhiêu chai thì miễn phí giao
-// số lần áp ưu đãi tặng chai trong 1 đơn. Đặt Infinity nếu muốn cộng dồn (cứ 2 chai tặng 1).
-const GIFT_TIMES=1;
-const PROMO={
- '10ml':{every:2,give:1,giftSize:'10ml',ship:0},
- '50ml':{every:2,give:1,giftSize:'50ml',ship:2},
- '100ml':{every:2,give:2,giftSize:'10ml',ship:1},
- '500ml':{off:.2,ship:1}
+const FREESHIP_FROM=1000000; // đơn có số tiền thanh toán trên mức này được miễn phí giao hàng
+const CANVAS='túi canvas Tự hào Việt Nam';
+// Chương trình theo dung tích. Quà tặng cộng dồn theo số lượng: cứ đủ `every` chai lại được 1 phần quà.
+// only: chỉ áp khi mua đúng số chai đó. off: giảm theo tỉ lệ (không có only = áp cho mọi chai).
+const PROGRAMS={
+ '10ml':[{id:'g2',every:2,gifts:[{n:1,item:'chai 10ml',value:322920}],label:'Mua 2 chai tặng 1 chai 10ml'}],
+ '50ml':[{id:'d5',only:1,off:.05,label:'Mua 1 chai giảm 5%'},
+         {id:'g2',every:2,gifts:[{n:1,item:'chai 50ml',value:970920},{n:1,item:CANVAS}],label:'Mua 2 chai tặng 1 chai 50ml + 1 '+CANVAS}],
+ '100ml':[{id:'d5',only:1,off:.05,label:'Mua 1 chai giảm 5%'},
+          {id:'g3',every:3,gifts:[{n:1,item:'chai 100ml',value:1402920},{n:1,item:CANVAS}],label:'Mua 3 chai tặng 1 chai 100ml + 1 '+CANVAS},
+          {id:'g2',every:2,gifts:[{n:2,item:'chai 10ml',value:322920}],label:'Mua 2 chai tặng 2 chai 10ml'}],
+ '500ml':[{id:'d20',off:.2,label:'Giảm 20% mỗi chai'}]
 };
 const fmt=n=>n.toLocaleString('vi-VN')+'đ';
 const $=id=>document.getElementById(id);
@@ -470,21 +478,32 @@ const clampQ=i=>Math.min(99,Math.max(1,parseInt(i.value,10)||1));
 const qtyOf=()=>clampQ(form.qty), mqtyOf=()=>clampQ(form.mqty);
 const stepState=(i,n)=>{i.parentNode.querySelector('[data-q="-1"]').disabled=n<=1;i.parentNode.querySelector('[data-q="1"]').disabled=n>=99};
 function curDeal(){
-  const size=form.size.value, qty=qtyOf(), pr=PROMO[size], paid=qty*PRICE[size];
-  const times=pr.every?Math.min(Math.floor(qty/pr.every),GIFT_TIMES):0, gifts=times*(pr.give||0);
-  const total=pr.off?Math.round(paid*(1-pr.off)):paid;
-  const orig=paid+gifts*(PRICE[pr.giftSize]||0);
-  return {size,qty,total,more:!!pr.every&&times<GIFT_TIMES&&qty>=pr.every,orig:orig>total?orig:0,off:pr.off?`giảm ${pr.off*100}%`:'',gift:gifts?`${gifts} chai ${pr.giftSize}`:'',ship:!!pr.ship&&qty>=pr.ship,pr};
+  const size=form.size.value, qty=qtyOf(), p=PRICE[size], progs=PROGRAMS[size];
+  let total=qty*p, off=0; const applied=new Set(), gifts={};
+  progs.filter(x=>x.off).forEach(x=>{if(!x.only||x.only===qty){off=x.off;applied.add(x.id)}});
+  if(off)total=Math.round(total*(1-off));
+  // quà tặng: ưu tiên mốc lớn trước, phần còn lại xét mốc nhỏ hơn, cộng dồn theo số chai
+  let rem=qty;
+  progs.filter(x=>x.every).sort((a,b)=>b.every-a.every).forEach(x=>{const t=Math.floor(rem/x.every);if(!t)return;rem-=t*x.every;applied.add(x.id);x.gifts.forEach(g=>{const k=g.item;gifts[k]=gifts[k]||{n:0,value:g.value||0};gifts[k].n+=g.n*t})});
+  const giftList=Object.entries(gifts).map(([item,g])=>({item,n:g.n,value:g.value}));
+  const giftValue=giftList.reduce((a,g)=>a+g.n*g.value,0);
+  const orig=qty*p+giftValue;
+  // gợi ý mốc kế tiếp
+  let hint='';const smallest=progs.filter(x=>x.every).sort((a,b)=>a.every-b.every)[0];
+  if(smallest&&rem>0&&rem<smallest.every){const need=smallest.every-rem;hint=`Thêm ${need} chai để được tặng thêm ${smallest.gifts.map(g=>`${g.n} ${g.item}`).join(' + ')}`}
+  return {size,qty,total,off,orig:orig>total?orig:0,applied,gifts:giftList,giftText:giftList.map(g=>`${g.n} ${g.item}`).join(' · '),ship:total>FREESHIP_FROM,hint};
 }
-const dealTitle=d=>`${d.qty} chai ${d.size}`+(d.gift?` + tặng ${d.gift}`:'')+(d.off?`, ${d.off}`:'');
-function promoCard(d){
-  const pr=d.pr, p=PRICE[d.size], free='Miễn phí giao hàng';
-  if(pr.off){const t=Math.round(p*(1-pr.off));return `<span>Giảm ${pr.off*100}% mỗi chai ${d.size}</span><small>${free} · Tiết kiệm ${fmt(p-t)} mỗi chai</small><b><s>${fmt(p)}</s>${fmt(t)}</b>`}
-  const t=pr.every*p, o=t+pr.give*PRICE[pr.giftSize];
-  const note=[pr.ship&&pr.every>=pr.ship&&free,`Tiết kiệm ${fmt(o-t)}`,d.qty>pr.every&&!d.more&&'Áp dụng 1 lần mỗi đơn'].filter(Boolean).join(' · ');
-  return `<span>${pr.every} chai ${d.size} + tặng ${pr.give} chai ${pr.giftSize}</span><small>${note}</small><b><s>${fmt(o)}</s>${fmt(t)}</b>`;
+const dealTitle=d=>`${d.qty} chai ${d.size}`+(d.giftText?` + tặng ${d.giftText}`:'')+(d.off?`, giảm ${d.off*100}%`:'');
+function promoCards(d){
+  const p=PRICE[d.size];
+  return PROGRAMS[d.size].map(x=>{
+    let main,note,price;
+    if(x.off){const t=Math.round(p*(1-x.off));main=x.label;note=x.only?`Tiết kiệm ${fmt(p-t)}`:`Tiết kiệm ${fmt(p-t)} mỗi chai`;price=`<s>${fmt(p)}</s>${fmt(t)}`}
+    else{const t=x.every*p,o=t+x.gifts.reduce((a,g)=>a+g.n*(g.value||0),0);main=x.label;note=`Cứ ${x.every} chai lại được tặng · Tiết kiệm ${fmt(o-t)}`;price=`<s>${fmt(o)}</s>${fmt(t)}`}
+    const on=d.applied.has(x.id);
+    return `<button type="button" class="pick deal${on?' on':''}" data-qty="${x.every||x.only||''}" aria-pressed="${on}"><span>${main}</span><small>${note}</small><b>${price}</b></button>`;
+  }).join('');
 }
-const promoOn=d=>!!d.pr.off||d.qty>=d.pr.every;
 const curMachine=()=>MACHINES.find(m=>m.name===form.machine.value);
 const setPrice=(total,orig)=>{sumPrice.textContent=total?fmt(total):'';const has=!!(orig&&total&&orig>total);$('sumOrigRow').hidden=$('sumSaveRow').hidden=!has;if(has){$('sumOrig').textContent=fmt(orig);$('sumSave').textContent=fmt(orig-total)}};
 const rows=list=>list.filter(r=>r[1]).map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('');
@@ -497,15 +516,18 @@ function sum(){
   if(branch==='combo'){
     const m=curMachine(), n=mqtyOf();
     stepState(form.mqty,n); $('mqtyUnit').textContent=m?`máy ${m.name}`:'máy'; $('mqtyPrice').textContent=m?fmt(n*m.price):'';
-    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${n} máy ${m.name} × ${fmt(m.price)}`:'Chưa chọn'],['Bảo hành',m&&`${m.warranty} tháng`],['Tinh dầu tặng kèm',m&&`1 chai ${m.gift}, ${form.scent.value?'hương '+scent:'chưa chọn mùi'} · <s>${fmt(m.giftValue)}</s>0đ`+(n>1?' (tặng 1 chai mỗi đơn)':'')]]);
-    setPrice(m&&n*m.price,m&&n*m.price+m.giftValue);
+    sumRows.innerHTML=rows([['Máy khuếch tán',m?`${n} máy ${m.name} × ${fmt(m.price)}`:'Chưa chọn'],['Bảo hành',m&&`${m.warranty} tháng`],['Tinh dầu tặng kèm',m&&`${n} chai ${m.gift}, ${form.scent.value?'hương '+scent:'chưa chọn mùi'} · <s>${fmt(n*m.giftValue)}</s>0đ`],['Giao hàng',m&&'Miễn phí']]);
+    setPrice(m&&n*m.price,m&&n*(m.price+m.giftValue));
     return;
   }
   const d=curDeal();
-  const card=promoCard(d); if(promoBox.dataset.h!==card){promoBox.innerHTML=card;promoBox.dataset.h=card} promoBox.classList.toggle('on',promoOn(d)); promoBox.setAttribute('aria-pressed',promoOn(d));
+  const cards=promoCards(d); if(promoBox.dataset.h!==cards){promoBox.innerHTML=cards;promoBox.dataset.h=cards}
   $('qtyUnit').textContent=`chai ${d.size}`; $('qtyPrice').innerHTML=(d.off?`<s>${fmt(d.qty*PRICE[d.size])}</s>`:'')+fmt(d.total);
   stepState(form.qty,d.qty);
-  sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${d.size} × ${fmt(PRICE[d.size])}`+(d.off?`, ${d.off}`:'')],['Quà tặng',d.gift&&`${d.gift} (ghi mùi muốn nhận ở ô ghi chú)`],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận']]);
+  const gl=$('giftLine'); gl.hidden=!d.giftText&&!d.hint;
+  gl.innerHTML=(d.giftText?`Quà tặng kèm: <b>${d.giftText}</b>`:'')+(d.hint?(d.giftText?' · ':'')+d.hint:'');
+  const hasOil=d.gifts.some(g=>g.value);
+  sumRows.innerHTML=rows([['Mùi',scent],['Sản phẩm',`${d.qty} chai ${d.size} × ${fmt(PRICE[d.size])}`+(d.off?`, giảm ${d.off*100}%`:'')],['Quà tặng',d.giftText&&(d.giftText+(hasOil?' (ghi mùi muốn nhận ở ô ghi chú)':''))],['Giao hàng',d.ship?'Miễn phí':'Phí báo khi xác nhận · đơn trên 1.000.000đ miễn phí']]);
   setPrice(d.total,d.orig);
 }
 // bấm lại lựa chọn đang tích thì bỏ tích
@@ -517,7 +539,8 @@ form.addEventListener('click',e=>{
 });
 form.addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;const i=b.parentNode.querySelector('input');i.value=Math.min(99,Math.max(1,clampQ(i)+ +b.dataset.q));sum()});
 // bấm thẻ ưu đãi: lấy đúng số chai của ưu đãi; bấm lại khi đang đúng số đó thì về 1 chai
-promoBox.addEventListener('click',()=>{const d=curDeal();if(d.pr.off)return;form.qty.value=d.qty===d.pr.every?1:d.pr.every;sum()});
+// bấm thẻ ưu đãi: đặt số chai theo mốc của chương trình đó
+promoBox.addEventListener('click',e=>{const b=e.target.closest('.deal');if(!b||!b.dataset.qty)return;form.qty.value=b.dataset.qty;sum()});
 [form.qty,form.mqty].forEach(i=>{i.addEventListener('input',sum);i.addEventListener('blur',()=>{i.value=clampQ(i);sum()})});
 form.addEventListener('change',sum);
 setBranch(q.get('for'));
@@ -535,8 +558,8 @@ function invalid(data){
 }
 function orderOf(data){
   if(isBiz())return {type:'Tư vấn doanh nghiệp',usage:'Không gian kinh doanh',scent:'',machine:'',size:'',deal:'',total:'',gift:''};
-  if(branch==='combo'){const m=curMachine(),n=mqtyOf();return {type:'Combo máy & tinh dầu',qty:n,machine:m.name,size:m.gift,deal:`${n} máy ${m.name}, tặng 1 chai ${m.gift} tinh dầu`,total:n*m.price,gift:`1 chai ${m.gift} ${data.scent}`}}
-  const d=curDeal();return {type:'Tinh dầu',machine:'',qty:d.qty,deal:dealTitle(d),total:d.total,gift:d.gift||''}
+  if(branch==='combo'){const m=curMachine(),n=mqtyOf();return {type:'Combo máy & tinh dầu',qty:n,machine:m.name,size:m.gift,deal:`${n} máy ${m.name}, tặng ${n} chai ${m.gift} tinh dầu`,total:n*m.price,gift:`${n} chai ${m.gift} ${data.scent}`}}
+  const d=curDeal();return {type:'Tinh dầu',machine:'',qty:d.qty,deal:dealTitle(d),total:d.total,gift:d.giftText}
 }
 form.addEventListener('submit',async e=>{
   e.preventDefault();
