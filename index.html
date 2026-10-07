@@ -231,9 +231,12 @@ form.sent+.success{display:block}
 .cl{display:grid;gap:12px;padding:24px 0;border-top:1px solid rgba(251,249,245,.16)}
 @media(min-width:760px){.cl{grid-template-columns:210px minmax(0,1fr);gap:32px;padding:30px 0}}
 .cl h3{font:500 13px/1.6 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#D9B98C}
-.cl ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 0;font-family:var(--serif);font-size:clamp(1.15rem,3.6vw,1.4rem);font-weight:500;line-height:1.25}
-.cl li{white-space:nowrap}
-.cl li:not(:last-child)::after{content:"·";margin:0 .55em;color:#D9B98C}
+.cl ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+@media(min-width:760px){.cl ul{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:12px}}
+.lg{aspect-ratio:3/2;border-radius:12px;overflow:hidden;background:#fff;display:grid;place-items:center;box-shadow:0 1px 0 rgba(255,255,255,.08)}
+.lg img{width:100%;height:100%;object-fit:cover}
+.lg.txt{background:rgba(251,249,245,.08);box-shadow:inset 0 0 0 1px rgba(251,249,245,.18);padding:8px 10px;text-align:center}
+.lg.txt span{font-family:var(--serif);font-size:clamp(.95rem,2.8vw,1.1rem);font-weight:500;line-height:1.2;color:var(--paper)}
 .cl-more{padding-top:22px;border-top:1px solid rgba(251,249,245,.16);font-size:14px;color:rgba(251,249,245,.7)}
 
 /* faq */
@@ -356,9 +359,9 @@ footer .logo img{height:104px}
 <section class="clients">
   <div class="wrap">
     <h2 class="rv">Những không gian đang dùng hương thơm YOKO JAPAN</h2>
-    <div class="cl"><h3>Toà nhà, khách sạn</h3><ul><li>Marina Central</li><li>Sofitel Legend Metropole Hanoi</li><li>Fairmont Hanoi Hotel</li><li>Grand Mercure Hanoi</li><li>Techcombank</li><li>Vietcombank</li><li>VPBank</li><li>OceanBank</li><li>Masterise</li><li>CapitaLand</li><li>BRG Group</li><li>Grand Terra</li><li>T&amp;T Building</li><li>HUD Tower</li><li>Geleximco</li><li>Vinhomes Metropolis</li><li>Heritage West Lake</li><li>Grand Hotel du Lac Hanoi</li><li>La Siesta Hotel</li><li>Tiến Bộ Plaza</li><li>The Marc 88</li><li>Đại học Thăng Long</li></ul></div>
-    <div class="cl"><h3>Bệnh viện, beauty</h3><ul><li>Bệnh viện Phương Đông</li><li>Phương Đông Asahi</li><li>Viện thẩm mỹ Kangnam</li><li>Viện thẩm mỹ Sejung</li><li>Bệnh viện Hồng Ngọc</li></ul></div>
-    <div class="cl"><h3>Showroom, thời trang</h3><ul><li>JM Dress Design</li><li>Krik</li><li>Mialala</li><li>NTK Hà Duy</li><li>Tiin Store</li><li>Happy Hahaha shop</li></ul></div>
+    <div class="cl"><h3>Toà nhà, khách sạn</h3><ul><li class="lg txt"><span>Marina Central</span></li><li class="lg txt"><span>Sofitel Legend Metropole Hanoi</span></li><li class="lg txt"><span>Fairmont Hanoi Hotel</span></li><li class="lg"><img src="img/kh/grand-mercure.webp" alt="Grand Mercure Hanoi" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/techcombank.webp" alt="Techcombank" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/vietcombank.webp" alt="Vietcombank" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/vpbank.webp" alt="VPBank" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>OceanBank</span></li><li class="lg"><img src="img/kh/masterise.webp" alt="Masterise" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>CapitaLand</span></li><li class="lg"><img src="img/kh/brg.webp" alt="BRG Group" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/grand-terra.webp" alt="Grand Terra" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/tt.webp" alt="T&amp;T Building" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/hud.webp" alt="HUD Tower" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/geleximco.webp" alt="Geleximco" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/vinhomes.webp" alt="Vinhomes Metropolis" width="600" height="400" loading="lazy"></li><li class="lg"><img src="img/kh/heritage.webp" alt="Heritage West Lake" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>Grand Hotel du Lac Hanoi</span></li><li class="lg"><img src="img/kh/la-siesta.webp" alt="La Siesta Hotel" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>Tiến Bộ Plaza</span></li><li class="lg txt"><span>The Marc 88</span></li><li class="lg"><img src="img/kh/thang-long.webp" alt="Đại học Thăng Long" width="600" height="400" loading="lazy"></li></ul></div>
+    <div class="cl"><h3>Bệnh viện, beauty</h3><ul><li class="lg txt"><span>Bệnh viện Phương Đông</span></li><li class="lg"><img src="img/kh/phuong-dong-asahi.webp" alt="Phương Đông Asahi" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>Viện thẩm mỹ Kangnam</span></li><li class="lg txt"><span>Viện thẩm mỹ Sejung</span></li><li class="lg"><img src="img/kh/hong-ngoc.webp" alt="Bệnh viện Hồng Ngọc" width="600" height="400" loading="lazy"></li></ul></div>
+    <div class="cl"><h3>Showroom, thời trang</h3><ul><li class="lg"><img src="img/kh/jm.webp" alt="JM Dress Design" width="600" height="400" loading="lazy"></li><li class="lg txt"><span>Krik</span></li><li class="lg txt"><span>Mialala</span></li><li class="lg txt"><span>NTK Hà Duy</span></li><li class="lg txt"><span>Tiin Store</span></li><li class="lg txt"><span>Happy Hahaha shop</span></li></ul></div>
     <p class="cl-more">Cùng nhiều khách hàng doanh nghiệp và cá nhân khác.</p>
   </div>
 </section>
