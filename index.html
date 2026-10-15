@@ -109,6 +109,18 @@ section{scroll-margin-top:84px}
 .go b{font-weight:400;font-size:13px;color:var(--gold-2);margin-top:6px;align-self:end}
 
 /* sản phẩm + đặt hàng */
+.why{background:var(--paper);padding:64px 0}
+.why h2{text-align:center;margin-bottom:32px}
+.why-grid{display:grid;gap:14px}
+@media(min-width:760px){.why-grid{grid-template-columns:1fr 1fr;gap:20px}}
+.why-col{display:flex;flex-direction:column;gap:16px;background:#fff;border-radius:var(--radius);padding:24px 22px;box-shadow:inset 0 0 0 1px var(--hair-2)}
+.why-col h3{font:500 13px/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
+.why-col ul{list-style:none;display:grid;gap:9px;flex:1}
+.why-col li{position:relative;padding-left:26px;font-size:15px;line-height:1.5}
+.why-col li::before{content:"✓";position:absolute;left:0;top:0;color:var(--gold);font-weight:500}
+.certs{display:flex;flex-wrap:wrap;gap:8px;padding-top:16px;border-top:1px solid var(--hair)}
+.certs span{font:500 13px/1 var(--sans);letter-spacing:.04em;color:var(--ink);background:rgba(164,126,82,.16);box-shadow:inset 0 0 0 1px rgba(164,126,82,.45);border-radius:999px;padding:8px 12px}
+.certs small{flex-basis:100%;font-size:12.5px;color:var(--ink-2)}
 .shop{padding:56px 0 80px}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--bg-2);border-radius:999px;padding:6px;max-width:620px;margin:0 auto 36px}
 .tab{border:0;cursor:pointer;border-radius:999px;min-height:50px;padding:8px 12px;font:400 14px/1.2 var(--sans);color:var(--ink-2);background:transparent;transition:background .4s var(--ease),color .4s var(--ease)}
@@ -296,6 +308,38 @@ footer .logo img{height:104px}
         <figure><picture><source type="image/webp" srcset="img/fb/hero-800.webp 800w, img/fb/hero.webp 1400w" sizes="(min-width:760px) 420px, 46vw"><img src="img/fb/hero.jpg" alt="Máy khuếch tán và tinh dầu YOKO trên khay gỗ" width="1600" height="1600" fetchpriority="high"></picture><figcaption class="on-light">Làn hơi tinh khiết, gắn kết không gian.</figcaption></figure>
         <div class="go-txt"><h2>Combo máy &amp; tinh dầu</h2><small>3 dòng máy khuếch tán, tặng kèm tinh dầu. Từ 1.618.920đ.</small><b>Xem &amp; đặt hàng ↓</b></div>
       </a>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h2 class="rv">Vì sao chọn YOKO</h2>
+    <div class="why-grid rv">
+      <div class="why-col">
+        <h3>Tinh dầu hương thơm cao cấp</h3>
+        <ul>
+          <li>Hương tinh tế, sang trọng, chất lượng cao</li>
+          <li>Công thức hương thơm đa dạng</li>
+          <li>Cấu trúc nhiều tầng</li>
+          <li>Ổn định, không bị biến đổi khi lên không gian</li>
+          <li>Nguồn đầu vào tuyển chọn kĩ lưỡng</li>
+          <li>Tinh dầu nhập khẩu 100%</li>
+        </ul>
+        <div class="certs"><small>Đầy đủ chứng chỉ chất lượng quốc tế và trong nước</small><span>MSDS</span><span>SGS</span><span>Quatest 3</span><span>IFRA</span></div>
+      </div>
+      <div class="why-col">
+        <h3>Máy khuếch tán cao cấp</h3>
+        <ul>
+          <li>Khuếch tán đồng đều, tiết kiệm tinh dầu</li>
+          <li>Kiểm soát cường độ hương</li>
+          <li>Lập trình thời gian hoạt động</li>
+          <li>Vận hành êm ái</li>
+          <li>Thiết kế tối giản</li>
+          <li>Nhiều công suất cho từng diện tích</li>
+        </ul>
+        <div class="certs"><small>Chứng chỉ chất lượng</small><span>CO</span><span>COC</span></div>
+      </div>
     </div>
   </div>
 </section>
