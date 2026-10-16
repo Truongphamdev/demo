@@ -149,6 +149,15 @@ legend.step-h{margin-bottom:14px}
 /* ô tích riêng để khách biết phải tích chọn, không nhầm chấm màu là nút chọn */
 .tick{flex:none;width:24px;height:24px;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink);display:grid;place-items:center;font-size:15px;line-height:1;color:transparent;transition:background .3s var(--ease),color .3s var(--ease)}
 .scent:has(input:checked) .tick{background:var(--ink);color:var(--paper)}
+/* ảnh nguyên liệu của từng mùi. Cách 1 (?anh=1): ảnh nhỏ giữa chấm màu và ô tích. Cách 2 (?anh=2): ảnh làm nền mờ cả thẻ */
+.ing{display:none}
+[data-anh="1"] .scent:not(.ask){grid-template-columns:minmax(0,1fr)}
+[data-anh="1"] .scent .mark{flex-direction:row;align-items:flex-start;gap:12px;grid-row:auto;margin-bottom:8px}
+[data-anh="1"] .ing{display:block;flex:1;min-width:0;height:84px;object-fit:cover;border-radius:10px}
+[data-anh="2"] .scent:not(.ask){overflow:hidden}
+[data-anh="2"] .scent:not(.ask)::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(251,249,245,.8),rgba(251,249,245,.8)),var(--ing) center/cover;filter:blur(2px);transform:scale(1.05);z-index:0}
+[data-anh="2"] .scent:not(.ask)>:not(input){position:relative;z-index:1}
+[data-anh="2"] .scent:not(.ask):has(input:checked){box-shadow:none;outline:2px solid var(--ink);outline-offset:-2px}
 .scent h3{font-size:clamp(1rem,5.15vw,1.6rem);font-weight:700;display:flex;flex-wrap:nowrap;white-space:nowrap;align-items:baseline;gap:8px}
 @media(min-width:1120px){.scent h3{font-size:1.24rem}}
 .scent h3 span{white-space:nowrap}
@@ -475,6 +484,8 @@ document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.addEventListener('clic
 
 // ---- sản phẩm ----
 const BIZ='Doanh nghiệp, cần tư vấn máy công suất lớn';
+// xem thử ảnh nguyên liệu: ?anh=1 hoặc ?anh=2; không có tham số thì trang giữ như cũ cho tới khi khách chọn
+{const v=new URLSearchParams(location.search).get('anh');if(v==='1'||v==='2')document.documentElement.dataset.anh=v}
 const SCENTS=[
  {name:'Tokyo',tag:'Thanh sạch',notes:'Green tea · Thảo mộc · Bamboo Woody · Amber Musk',feel:'Thanh sạch, xanh, tinh tế, có chiều sâu',c:['#B9C9A4','#EEEAD2']},
  {name:'Kuma',tag:'Thanh lịch',notes:'Fruity · White Floral · Lotus · Amber',feel:'Tươi sáng, thanh lịch, mềm mại',c:['#F1D3D6','#FBF1E4']},
@@ -509,7 +520,7 @@ const fmt=n=>n.toLocaleString('vi-VN')+'đ';
 const $=id=>document.getElementById(id);
 const form=$('orderForm'), promoBox=$('promoBox'), sumRows=$('sumRows'), sumPrice=$('sumPrice'), err=$('err');
 
-$('scentPicks').innerHTML=SCENTS.map(s=>`<label class="pick scent"><input type="radio" name="scent" value="${s.name}"><span class="mark"><span class="swatch" style="--c1:${s.c[0]};--c2:${s.c[1]}"></span><span class="tick" aria-hidden="true">✓</span></span><h3><span>Hương ${s.name}</span><span><i>—</i> <small>${s.tag}</small></span></h3><p class="notes">${s.notes}</p><p class="feel">${s.feel}</p></label>`).join('')
+$('scentPicks').innerHTML=SCENTS.map(s=>`<label class="pick scent" style="--ing:url(img/scent/${s.name.toLowerCase()}.webp)"><input type="radio" name="scent" value="${s.name}"><span class="mark"><span class="swatch" style="--c1:${s.c[0]};--c2:${s.c[1]}"></span><img class="ing" src="img/scent/${s.name.toLowerCase()}.webp" alt="Nguyên liệu hương ${s.name}" width="640" height="560" loading="lazy"><span class="tick" aria-hidden="true">✓</span></span><h3><span>Hương ${s.name}</span><span><i>—</i> <small>${s.tag}</small></span></h3><p class="notes">${s.notes}</p><p class="feel">${s.feel}</p></label>`).join('')
  +`<label class="pick scent ask"><input type="radio" name="scent" value="${BIZ}"><span class="tick" aria-hidden="true">✓</span><p class="biz-txt">Nếu bạn là doanh nghiệp, cần dòng máy công suất lớn, hãy để lại số điện thoại, nhân viên sẽ liên hệ tư vấn.</p></label>`;
 $('machinePicks').innerHTML=MACHINES.map(m=>`<label class="pick machine"><input type="radio" name="machine" value="${m.name}"><div class="m-img">${m.img?`<img src="${m.img}" alt="Máy khuếch tán YOKO ${m.name}" width="720" height="720" loading="lazy">`:'<span>Ảnh đang cập nhật</span>'}</div><div><h3>${m.name}</h3><p class="m-price">${m.price?fmt(m.price):'Báo giá khi xác nhận'}</p><p class="use">${m.use} · Bảo hành ${m.warranty} tháng</p><p class="gift">Tặng <b>${m.gift} tinh dầu</b> trị giá ${fmt(m.giftValue)}</p></div></label>`).join('');
 
