@@ -155,7 +155,12 @@ legend.step-h{margin-bottom:14px}
 [data-anh="1"] .scent .mark{flex-direction:row;align-items:flex-start;gap:12px;grid-row:auto;margin-bottom:8px}
 [data-anh="1"] .ing{display:block;flex:1;min-width:0;height:84px;object-fit:cover;border-radius:10px}
 [data-anh="2"] .scent:not(.ask){overflow:hidden}
-[data-anh="2"] .scent:not(.ask)::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(251,249,245,.8),rgba(251,249,245,.8)),var(--ing) center/cover;filter:blur(2px);transform:scale(1.05);z-index:0}
+[data-anh="2"] .scent:not(.ask)::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(251,249,245,.5),rgba(251,249,245,.5)),var(--ing) center/cover;filter:blur(.5px);transform:scale(1.02);z-index:0}
+/* nền rõ hơn nên chữ đậm và có viền sáng để vẫn đọc được */
+[data-anh="2"] .scent:not(.ask) :is(h3,.notes,.feel){text-shadow:0 0 3px #fff,0 0 8px #fff,0 0 14px rgba(255,255,255,.9)}
+[data-anh="2"] .scent:not(.ask) h3 small{font-weight:600;color:var(--gold-2)}
+[data-anh="2"] .scent:not(.ask) .notes{font-weight:500;color:var(--ink)}
+[data-anh="2"] .scent:not(.ask) .feel{font-weight:500;color:var(--ink)}
 [data-anh="2"] .scent:not(.ask)>:not(input){position:relative;z-index:1}
 [data-anh="2"] .scent:not(.ask):has(input:checked){box-shadow:none;outline:2px solid var(--ink);outline-offset:-2px}
 .scent h3{font-size:clamp(1rem,5.15vw,1.6rem);font-weight:700;display:flex;flex-wrap:nowrap;white-space:nowrap;align-items:baseline;gap:8px}
